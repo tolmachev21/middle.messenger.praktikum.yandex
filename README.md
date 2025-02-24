@@ -23,4 +23,4 @@
 ### Дизайн
 
 Посмотреть дизайн можно в Figma - 
-[ссылка на фигму](https://www.figma.com/design/jF5fFFzgGOxQeB4CmKWTiE/Chat_external_link?node-id=0-1&p=f&t=2EYU8rP76xECcv2L-0) 
+[ссылка на фигму](https://www.figma.com/design/jF5fFFzgGOxQeB4CmKWTiE/Chat_external_link?node-id=0-1&p=f&t=2EYU8rP76xECcv2L-0)
