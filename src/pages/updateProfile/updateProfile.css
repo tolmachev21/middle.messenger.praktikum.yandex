@@ -1,8 +1,17 @@
 .form-profile {
-    min-height: 100px;
     padding: 0;
+    gap: 60px;
+    justify-content: space-between;
     border: 0;
     box-shadow: none;
+}
+
+.profile-from__field-group {
+    min-height: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 .profile-form-input__label {
@@ -16,15 +25,11 @@
     width: 300px;
     height: 13px;
     font-weight: 500;
-    font-size: 13px !important;
+    font-size: 13px;
     line-height: 13px;
     letter-spacing: 0;
     text-align: end;
     color: #999;
-}
-
-.profile__footer_place_centered {
-    align-items: center;
 }
 
 .profile__nav {
