@@ -1,0 +1,43 @@
+.form-profile {
+    min-height: 100px;
+    padding: 0;
+    border: 0;
+    box-shadow: none;
+}
+
+.profile-form-input__label {
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 13px;
+    letter-spacing: 0;
+}
+
+.profile-form-input__input {
+    width: 300px;
+    height: 13px;
+    font-weight: 500;
+    font-size: 13px !important;
+    line-height: 13px;
+    letter-spacing: 0;
+    text-align: end;
+    color: #999;
+}
+
+.profile__footer_place_centered {
+    align-items: center;
+}
+
+.profile__nav {
+    background-color: #FBFBFB;
+    border-right: #EAEAEA 1px solid;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+
+.profile__back {
+    padding: 0 18px;
+}
