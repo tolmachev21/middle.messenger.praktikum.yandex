@@ -16,23 +16,27 @@ const pages = {
 }
 
 Object.entries(Components).forEach(([ name, template ]) => {
+    if (typeof template === 'function') {
+        return
+    }
+
     Handlebars.registerPartial(name, template);
 });
 
-function navigate (page) {
+function navigate (page: string) {
+    //@ts-ignore
     const [ source, context ] = pages[page]
-    const appElement = document.getElementById('app')
+    const appElement = document.getElementById('app')!
 
     const template = Handlebars.compile(source)
-    console.log('html', template(context))
     appElement.innerHTML = template(context)
 }
 
 document.addEventListener('DOMContentLoaded', () => navigate('navigate'))
 
 document.addEventListener('click', (e) => {
-    console.log(e.target)
-    const page = e.target.getAttribute('page')
+    //@ts-ignore
+    const page = e?.target.getAttribute('page')
     console.log(page)
     if (page) {
         navigate(page)
