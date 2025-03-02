@@ -1,0 +1,29 @@
+<main class="page">
+    <form name="signInForm" class="form" novalidate>
+        {{> Title size="default" text="Вход"}}
+        <fieldset class="form-group from-group__inputs">
+            {{> FormInput
+                    name="login"
+                    type="text"
+                    required="required"
+                    title="Логин"
+                    hiddenTitleClassName="display_none"
+                    error="Неверный логин"
+                    hiddenErrorClassName=""
+            }}
+            {{> FormInput
+                    name="password"
+                    type="password"
+                    required="required"
+                    title="Пароль"
+                    hiddenTitleClassName="display_none"
+                    error="Неверный пароль"
+                    hiddenErrorClassName="display_none"
+            }}
+        </fieldset>
+        <fieldset class="form-group form-group__buttons">
+            {{> Button text="Авторизоваться" className="default" name="Sign in" type="submit" page="chats" }}
+            {{> Link text="Нет аккаунта?" type="default" size="small" page="signUp" name="Registration" }}
+        </fieldset>
+    </form>
+</main>

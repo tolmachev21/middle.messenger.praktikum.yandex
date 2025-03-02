@@ -1,0 +1,137 @@
+.profile {
+    margin: auto;
+    max-width: 510px;
+}
+
+.profile__header {
+    margin-top: 60px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 21px;
+}
+
+.profile-avatar {
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    background: #EFEFEF;
+}
+
+.profile__avatar_state_hover:hover::before {
+    content: "Поменять аватар";
+    cursor: pointer;
+    background-color: #000000;
+    opacity: 50%;
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    padding: 51px 33px;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    color: #fff;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 14px;
+    letter-spacing: 0;
+    text-align: center;
+    z-index: 1;
+}
+
+.profile__body {
+    margin-top: 60px;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.profile__user-field {
+    padding: 10px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: #EAEAEA 1px solid;
+}
+
+.profile__user-field:last-child {
+    border-bottom: none;
+}
+
+.profile__footer {
+    margin-top: 60px;
+    display: flex;
+    flex-direction: column;
+}
+
+.profile__link {
+    padding: 10px 0;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: #EAEAEA 1px solid;
+}
+
+.profile__link:last-child {
+    border-bottom: none;
+}
+
+.profile__nav {
+    background-color: #FBFBFB;
+    border-right: #EAEAEA 1px solid;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+
+.profile__back {
+    padding: 0 18px;
+}
+
+.popup {
+    background-color: rgba(0, 0, 0, 0.4);
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 999;
+}
+
+.popup-form {
+    max-width: 340px;
+    box-sizing: border-box;
+    padding: 40px 30px;
+    border-radius: 12px;
+    background-color: white;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.popup-form-group {
+    display: flex;
+    justify-content: center;
+    padding: 44px 0 0;
+}
+
+.popup-form__label {
+    padding: 0 80px;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 16px;
+    letter-spacing: 0;
+    text-align: center;
+    text-decoration: underline;
+    color: #3369F3;
+}
+
+.popup-form__input {
+    display: none;
+}

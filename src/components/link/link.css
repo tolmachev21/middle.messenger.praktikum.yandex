@@ -1,0 +1,23 @@
+.link {
+    font-weight: 500;
+    letter-spacing: 0;
+    text-align: center;
+}
+
+.link__big {
+    font-size: 13px;
+    line-height: 13px;
+}
+
+.link__small {
+    font-size: 11px;
+    line-height: 11px;
+}
+
+.link__default {
+    color: #3369F3;
+}
+
+.link__danger {
+    color: #FF0000;
+}

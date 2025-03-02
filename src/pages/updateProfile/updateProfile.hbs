@@ -1,0 +1,85 @@
+<header class="profile">
+    <div class="profile__header">
+        <div class="profile-avatar">
+            <img class="profile-avatar__default" src="/assets/without-avatar.svg" alt="Avatar">
+        </div>
+    </div>
+</header>
+<main class="profile">
+    <form name="updateProfileForm" class="form form-profile" novalidate>
+        <fieldset class="profile-from__field-group">
+            <ul class="profile__body">
+                <li class="profile__user-field">
+                    <label class="profile-form-input__label" for="email">Почта</label>
+                    <input
+                            name="email"
+                            type="email"
+                            class="profile-form-input__input"
+                            required
+                            placeholder="pochta@yandex.ru"
+                    >
+                </li>
+                <li class="profile__user-field">
+                    <label class="profile-form-input__label" for="login">Логин</label>
+                    <input
+                            name="login"
+                            type="text"
+                            class="profile-form-input__input"
+                            required
+                            placeholder="ivanivanov"
+                    >
+                </li>
+                <li class="profile__user-field">
+                    <label class="profile-form-input__label" for="first_name">Имя</label>
+                    <input
+                            name="first_name"
+                            type="text"
+                            class="profile-form-input__input"
+                            required
+                            placeholder="Иван"
+                    >
+                </li>
+                <li class="profile__user-field">
+                    <label class="profile-form-input__label" for="second_name">Фамилия</label>
+                    <input
+                            name="second_name"
+                            type="text"
+                            class="profile-form-input__input"
+                            required
+                            placeholder="Иванов"
+                    >
+                </li>
+                <li class="profile__user-field">
+                    <label class="profile-form-input__label" for="display_name">Имя в чате</label>
+                    <input
+                            name="display_name"
+                            type="text"
+                            class="profile-form-input__input"
+                            required
+                            placeholder="Иван"
+                    >
+                </li>
+                <li class="profile__user-field">
+                    <label class="profile-form-input__label" for="phone">Телефон</label>
+                    <input
+                            name="phone"
+                            type="tel"
+                            class="profile-form-input__input"
+                            required
+                            placeholder="+7 (909) 967 30 30"
+                    >
+                </li>
+            </ul>
+        </fieldset>
+
+        <fieldset class="profile-from__field-group">
+            {{> Button text="Сохранить" className="default" type="submit" page="profile"}}
+        </fieldset>
+    </form>
+</main>
+
+<nav class="profile__nav">
+    <a href="#" >
+        <img class="profile__back" page="profile" src="/assets/back-link.svg" alt="Назад">
+    </a>
+</nav>
