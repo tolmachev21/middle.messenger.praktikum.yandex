@@ -7,8 +7,6 @@
     "skipLibCheck": true,
     "baseUrl": "./src",
 
-    "sourceMap": true,
-    "noImplicitAny": true,
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
     "resolveJsonModule": true,
@@ -18,7 +16,10 @@
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+    "strictNullChecks": true,
+    "sourceMap": true,
+    "noImplicitAny": true
   },
   "include": ["src"]
 }
