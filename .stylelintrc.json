@@ -1,9 +1,15 @@
 {
   "extends": "stylelint-config-standard",
   "rules": {
-    "color-hex-case": "lower"
+    "selector-class-pattern": null,
+    "declaration-block-single-line-max-declarations": 1,
+    "custom-property-pattern": null,
+    "keyframes-name-pattern": null,
+    "color-hex-length": "short"
   },
   "ignoreFiles": [
-    "build/*"
+    "build/*",
+    "dist/*",
+    "dist/**/*"
   ]
 }

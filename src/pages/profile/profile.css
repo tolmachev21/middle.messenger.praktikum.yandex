@@ -23,8 +23,8 @@
 .profile__avatar_state_hover:hover::before {
     content: "Поменять аватар";
     cursor: pointer;
-    background-color: #000000;
-    opacity: 50%;
+    background-color: #000;
+    opacity: 0.5;
     width: 130px;
     height: 130px;
     border-radius: 50%;

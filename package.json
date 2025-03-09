@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "lint": "node_modules/.bin/eslint",
+    "stylelint": "stylelint \"**/*.css\" --fix",
     "dev": "tsc --noEmit && vite",
     "prebuild": "tsc --noEmit",
     "build": "npm run prebuild && vite build",
