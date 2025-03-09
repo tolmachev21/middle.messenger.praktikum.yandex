@@ -1,5 +1,5 @@
 import Block from '../../core/Block.ts'
-import { Title, Text, Button, InlineText, Link, Popup } from '../../components'
+import { Title, Text, InlineText, Link, Popup } from '../../components'
 import { default as rawProfile } from './profile.hbs?raw'
 
 
@@ -14,12 +14,6 @@ export default class Profile extends Block {
             Text: new Text({
                 text: 'Почта',
                 size: 'small',
-            }),
-            Button: new Button({
-                text: 'Поменять',
-                type: 'submit',
-                page: 'profile',
-                className: 'default',
             }),
             profileFilds: [
                 new InlineText({

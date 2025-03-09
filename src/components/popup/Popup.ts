@@ -35,6 +35,9 @@ export default class Popup extends Block {
                 name: props.button.name,
                 page: props.button.page,
                 className: 'default',
+                onClick: (e: Event) => {
+                    console.log(e, 'Поменять аватар')
+                }
             }),
         })
     }
