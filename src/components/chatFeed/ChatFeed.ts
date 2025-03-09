@@ -21,8 +21,9 @@ export default class ChatFeed extends Block {
                 },
             }),
             MessageInput: new MessageInput({
-                onChange: (e: any) => {
-                    const value = e.target.value;
+                onChange: (e: Event) => {
+                    const target = e.target as HTMLInputElement;
+                    const value = target.value;
                     let error = '';
                     if (value === '') {
                         error = "Value is empty"
@@ -40,8 +41,9 @@ export default class ChatFeed extends Block {
                     })
                 },
             }),
+            // Еще не известен формат входных данных
             messages: props.messages.map((message: any) => new Message({
-                content: message.content,
+                text: message.content,
                 time: message.time,
                 status: message.status,
             }))

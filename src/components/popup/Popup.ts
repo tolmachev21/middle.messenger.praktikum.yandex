@@ -1,10 +1,25 @@
 import Block from '../../core/Block'
 import { default as rawPopup } from './popup.hbs?raw'
-import { Text } from '../text'
-import { Button } from '../button'
+import { Button, Text } from '../../components'
+
+interface PopupProps {
+    title: string;
+    text: string;
+    button: {
+        name: string;
+        page: string;
+        type: string;
+        text: string;
+        onClick?: (e: Event) => void;
+    };
+    page: string;
+    attributes: {
+        open: string;
+    };
+}
 
 export default class Popup extends Block {
-    constructor(props: any) {
+    constructor(props: PopupProps) {
         super('dialog', {
             ...props,
             attributes: {
@@ -14,7 +29,6 @@ export default class Popup extends Block {
             TextLoadFile: new Text({
                 text: props.title,
             }),
-            text: props.text,
             Button: new Button({
                 text: props.button.text,
                 type: props.button.type,

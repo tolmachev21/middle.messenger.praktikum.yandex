@@ -37,7 +37,7 @@ export default class UpdatePassword extends Block {
                     name: 'oldPassword',
                     type: 'password',
                     title: 'Старый пароль',
-                    required: 'required',
+                    required: true,
                     value: '',
                     onChange: (e: any) => {
                         const value = e.target.value;
@@ -65,7 +65,7 @@ export default class UpdatePassword extends Block {
                     name: 'newPassword',
                     type: 'password',
                     title: 'Новый пароль',
-                    required: 'required',
+                    required: true,
                     value: '',
                     onChange: (e: any) => {
                         const value = e.target.value;
@@ -93,7 +93,7 @@ export default class UpdatePassword extends Block {
                     name: 'newPasswordAgain',
                     type: 'password',
                     title: 'Повторите новый пароль',
-                    required: 'required',
+                    required: true,
                     value: '',
                     onChange: (e: any) => {
                         const value = e.target.value;

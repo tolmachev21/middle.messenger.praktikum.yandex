@@ -46,7 +46,7 @@ export default class UpdateProfile extends Block {
                     name: 'email',
                     type: 'email',
                     title: 'Почта',
-                    required: 'required',
+                    required: true,
                     value: 'pochta@yandex.ru',
                     onChange: (e: any) => {
                         const value = e.target.value;
@@ -74,7 +74,7 @@ export default class UpdateProfile extends Block {
                     name: 'login',
                     type: 'text',
                     title: 'Логин',
-                    required: 'required',
+                    required: true,
                     value: 'ivanivanov',
                     onChange: (e: any) => {
                         const value = e.target.value;
@@ -102,7 +102,7 @@ export default class UpdateProfile extends Block {
                     name: 'first_name',
                     type: 'text',
                     title: 'Имя',
-                    required: 'required',
+                    required: true,
                     value: 'Иван',
                     onChange: (e: any) => {
                         const value = e.target.value;
@@ -130,8 +130,8 @@ export default class UpdateProfile extends Block {
                     name: 'second_name',
                     type: 'text',
                     title: 'Фамилия',
-                    required: 'required',
-                        value: 'Иванов',
+                    required: true,
+                    value: 'Иванов',
                     onChange: (e: any) => {
                         const value = e.target.value;
                         this.props.errorState.second_name = ''
@@ -158,7 +158,7 @@ export default class UpdateProfile extends Block {
                     name: 'display_name',
                     type: 'text',
                     title: 'Имя в чате',
-                    required: 'required',
+                    required: true,
                     value: 'Иван',
                     onChange: (e: any) => {
                         const value = e.target.value;
@@ -186,7 +186,7 @@ export default class UpdateProfile extends Block {
                     name: 'phone',
                     type: 'tel',
                     title: 'Телефон',
-                    required: 'required',
+                    required: true,
                     value: '+7 (909) 967 30 30',
                     onChange: (e: any) => {
                         const value = e.target.value;

@@ -2,8 +2,16 @@ import Block from '../../core/Block'
 import { default as rawInlineText } from './inlineText.hbs?raw'
 import { Text } from '../text'
 
+interface InlineTextProps {
+    label: string;
+    value: string;
+    size?: string;
+    color?: string;
+    type?: string;
+}
+
 export default class InlineText extends Block {
-    constructor(props: any) {
+    constructor(props: InlineTextProps) {
         super('li', {
             ...props,
             className: 'profile__user-field',

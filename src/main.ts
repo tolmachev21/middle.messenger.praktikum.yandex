@@ -5,6 +5,7 @@ import * as Pages from './pages'
 import renderDOM from "./core/renderDOM.ts";
 import Block from "./core/Block.ts";
 
+// Каждая страница принимает разные виды пропсов
 type Constructor = new (...args: any[]) => Block;
 type PageValue = [Constructor, any?] | [string, any?];
 type PagesType = {

@@ -16,7 +16,8 @@ export default class ChatId extends Block {
                 messages: mockDataMessages,
             }),
             ChatsNavigate: new ChatsNavigate({
-                chats: mockData.map((props) => new Chat({ ...props })),
+                // Еще не известен формат входных данных
+                chats: mockData.map((props: any) => new Chat({ ...props })),
             }),
         })
     }

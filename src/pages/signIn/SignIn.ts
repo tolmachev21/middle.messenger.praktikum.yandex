@@ -1,6 +1,6 @@
 import Block from '../../core/Block'
-import { Button, Title, Link, StackedInput } from '../../components'
 import { default as rawSignIn } from './signIn.hbs?raw'
+import { Button, Link, StackedInput, Title } from '../../components'
 
 export default class SignIn extends Block {
     constructor (props: any) {
@@ -25,13 +25,14 @@ export default class SignIn extends Block {
                 name: 'Sign in', 
                 type: 'submit', 
                 page: 'chats',
-                onClick: (e: any) => {
+                onClick: (e: Event) => {
                     e.preventDefault();
-                    if (Object.values(this.props.errorState).some((value: unknown) => value !== '')) {
+                    const state = this.props;
+                    if (Object.values(state.errorState).some((value) => value !== '')) {
                         console.log('Все поля должны быть заполнены и не содержать ошибок')
                     } else {
-                        console.log('login', this.props.formState.login)
-                        console.log('password', this.props.formState.password)
+                        console.log('login', state.formState.login)
+                        console.log('password', state.formState.password)
                     }
                 },
             }),
@@ -45,27 +46,28 @@ export default class SignIn extends Block {
             InputLogin: new StackedInput({
                 name: 'login',
                 type: 'text',
-                required: 'required',
+                required: true,
                 title: 'Логин',
-                hiddenTitleClassName: 'display_none',
-                onChange: (e: any) => {
-                    const value = e.target.value;
-                    this.props.errorState.login = ''
+                onChange: (e: Event) => {
+                    const target = e.target as HTMLInputElement;
+                    const value = target.value;
+                    const state = this.props;
+                    state.errorState.login = '';
                     const regExp = new RegExp(/^(?!\d+$)[a-zA-Z0-9_-]{3,20}$/)
                     if (!regExp.test(value)) {
-                        this.props.errorState.login = "Неверный логин"
+                        state.errorState.login = "Неверный логин"
                     }
                     if (this.children.InputLogin instanceof Block) {
                         this.children.InputLogin.setProps({
-                            error: this.props.errorState.login,
+                            error: state.errorState.login,
                             value,
-                            hiddenErrorClassName: this.props.errorState.login ? '' : 'display_none',
+                            hiddenErrorClassName: state.errorState.login ? '' : 'display_none',
                         });
                     }
                     
                     this.setProps({
                         formState: {
-                            ...this.props.formState,
+                            ...state.formState,
                             login: value
                         }
                     })
@@ -74,27 +76,28 @@ export default class SignIn extends Block {
             InputPassword: new StackedInput({
                 name: 'password',
                 type: 'password',
-                required: 'required',
+                required: true,
                 title: 'Пароль',
-                hiddenTitleClassName: 'display_none',
-                onChange: (e: any) => {
-                    const value = e.target.value;
-                    this.props.errorState.password = ''
+                onChange: (e: Event) => {
+                    const target = e.target as HTMLInputElement;
+                    const value = target.value;
+                    const state = this.props;
+                    state.errorState.password = '';
                     const regExp = new RegExp(/^(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,40}$/)
                     if (!regExp.test(value)) {
-                        this.props.errorState.password = "Неверный пароль"
+                        state.errorState.password = "Неверный пароль"
                     }
                     if (this.children.InputPassword instanceof Block) {
                         this.children.InputPassword.setProps({
-                            error: this.props.errorState.password,
+                            error: state.errorState.password,
                             value,
-                            hiddenErrorClassName: this.props.errorState.password ? '' : 'display_none',
+                            hiddenErrorClassName: state.errorState.password ? '' : 'display_none',
                         });
                     }
                     
                     this.setProps({
                         formState: {
-                            ...this.props.formState,
+                            ...state.formState,
                             password: value
                         }
                     })
@@ -103,7 +106,7 @@ export default class SignIn extends Block {
         })
     }
 
-    public render ():string {
+    public render(): string {
         return rawSignIn
     }
 }

@@ -1,8 +1,19 @@
 import Block from "../../core/Block.ts";
 import { default as rawButton } from './button.hbs?raw' 
 
+interface ButtonProps {
+    disabled?: boolean;
+    type?: string;
+    name?: string;
+    page?: string;
+    className?: string;
+    text?: string;
+    onClick?: (e: Event) => void;
+    Icon?: string;
+}
+
 export default class Button extends Block {
-    constructor (props: any) {
+    constructor (props: ButtonProps) {
         super('button', {
             ...props,
             attributes: {
@@ -11,7 +22,7 @@ export default class Button extends Block {
                 name: props.name,
                 page: props.page,
             },
-            className: `button button__${ props.className }`,
+            className: `button ${props.className ? `button__${props.className}` : ''}`,
             events: {
                 click: props.onClick,
             },

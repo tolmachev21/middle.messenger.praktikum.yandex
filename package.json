@@ -4,8 +4,8 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "lint": "node_modules/.bin/eslint",
-    "stylelint": "stylelint \"**/*.css\" --fix",
+    "lint": "node_modules/.bin/eslint --fix && stylelint \"**/*.css\" --fix && tsc --noEmit",
+    "stylelint": "",
     "dev": "tsc --noEmit && vite",
     "prebuild": "tsc --noEmit",
     "build": "npm run prebuild && vite build",
