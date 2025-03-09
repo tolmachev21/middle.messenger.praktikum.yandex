@@ -22,3 +22,27 @@
 .text_color_gray {
     color: #999;
 }
+
+.text_color_default {
+    color: #1E1E1E;
+}
+
+.text__name {
+    font-weight: 600;
+    font-size: 13px;
+    line-height: 13px;
+    text-align: start;
+    max-height: 13px;
+}
+
+.text__time {
+    font-size: 9px;
+    line-height: 13px;
+}
+
+.text__message {
+    font-size: 12px;
+    line-height: 15px;
+    text-align: start;
+    max-height: 30px;
+}

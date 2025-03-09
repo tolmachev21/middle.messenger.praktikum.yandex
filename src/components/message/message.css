@@ -1,0 +1,54 @@
+.message {
+    max-width: 402px;
+    margin: 0;
+    padding: 11px;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.message-self {
+    background-color: #E4EDFD;
+    align-self: end;
+}
+
+.message-friend {
+    background-color: #F8F8F8;
+    align-self: start;
+}
+
+.message__content {
+    margin: 0;
+    padding: 0;
+    font-size: 12px;
+    line-height: 15px;
+    letter-spacing: 0;
+    font-weight: 500;
+}
+
+.message__time {
+    margin: 0;
+    padding: 0;
+    font-size: 9px;
+    line-height: 9px;
+    font-weight: 500;
+    align-self: end;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.message-self__time {
+    color: #3369F3;
+}
+
+.message-friend__time {
+    color: #999;
+}
+
+.message__status {
+    margin: 0;
+    padding: 0;
+
+}

@@ -1,0 +1,37 @@
+.profile__user-field {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+}
+
+.profile-form-input__label {
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 13px;
+    letter-spacing: 0;
+}
+
+.profile-form-input__input {
+    width: 300px;
+    height: 13px;
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 13px;
+    letter-spacing: 0;
+    text-align: end;
+    color: #999;
+}
+
+.profile-form-input__error {
+    color: red;
+    flex-basis: 100%; 
+    font-weight: 400;
+    font-size: 8px;
+    line-height: 8px;
+    letter-spacing: 0;
+    text-align: end;
+}
+
+.profile-form-input__error.display_none {
+    display: none;
+}

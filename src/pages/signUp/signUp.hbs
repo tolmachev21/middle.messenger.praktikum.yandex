@@ -1,74 +1,16 @@
-<main class="page">
-    <form name="signInForm" class="form" novalidate>
-        {{> Title size="default" text="Регистрация"}}
-        <fieldset class="form-group from-group__inputs">
-            {{> FormInput
-                    name="email"
-                    type="email"
-                    required="required"
-                    title="Почта"
-                    hiddenTitleClassName="display_none"
-                    error="Неверный формат почты. Необходим символ @ и ."
-                    hiddenErrorClassName="display_none"
-            }}
-            {{> FormInput
-                    name="login"
-                    type="text"
-                    required="required"
-                    title="Логин"
-                    hiddenTitleClassName="display_none"
-                    error="Логин должен содержать от 3 до 40 символов"
-                    hiddenErrorClassName=""
-            }}
-            {{> FormInput
-                    name="first_name"
-                    type="text"
-                    required="required"
-                    title="Имя"
-                    hiddenTitleClassName="display_none"
-                    error="Имя должно содержать от 3 до 40 символов"
-                    hiddenErrorClassName="display_none"
-            }}
-            {{> FormInput
-                    name="second_name"
-                    type="text"
-                    required="required"
-                    title="Фамилия"
-                    hiddenTitleClassName="display_none"
-                    error="Фамилия должна содержать от 3 до 40 символов"
-                    hiddenErrorClassName="display_none"
-            }}
-            {{> FormInput
-                    name="phone"
-                    type="tel"
-                    required="required"
-                    title="Телефон"
-                    hiddenTitleClassName="display_none"
-                    error="Неверный формат номера телефона"
-                    hiddenErrorClassName="display_none"
-            }}
-            {{> FormInput
-                    name="password"
-                    type="password"
-                    required="required"
-                    title="Пароль"
-                    hiddenTitleClassName="display_none"
-                    error="Пароль должен содержать от 6 до 40 символов"
-                    hiddenErrorClassName="display_none"
-            }}
-            {{> FormInput
-                    name="password"
-                    type="password"
-                    required="required"
-                    title="Пароль (еще раз)"
-                    hiddenTitleClassName="display_none"
-                    error="Пароли не совпадают"
-                    hiddenErrorClassName="display_none"
-            }}
-        </fieldset>
-        <fieldset class="form-group form-group__buttons">
-            {{> Button text="Зарегистрироваться" className="default" name="Sign up" type="submit" page="signIn" }}
-            {{> Link text="Войти" type="default" size="small" page="signIn" name="Enter" }}
-        </fieldset>
-    </form>
-</main>
+<form name="signUpForm" class="form">
+        {{{ Title }}}
+<fieldset class="form-group from-group__inputs">
+        {{{ InputEmail }}}
+        {{{ InputLogin }}}
+        {{{ InputFirstName }}}
+        {{{ InputSecondName }}}
+        {{{ InputPhone }}}
+        {{{ InputPassword }}}
+        {{{ InputPasswordRepeat }}}
+</fieldset>
+<fieldset class="form-group form-group__buttons">
+        {{{ Button }}}
+        {{{ Link }}}
+</fieldset>
+</form>

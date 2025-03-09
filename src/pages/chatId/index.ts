@@ -1,2 +1,2 @@
 import './chatId.css'
-export { default as ChatId } from './chatId.hbs?raw'
+export { default as ChatId } from './ChatId.ts'

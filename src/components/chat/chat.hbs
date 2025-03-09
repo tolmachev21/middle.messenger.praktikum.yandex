@@ -1,0 +1,13 @@
+<a href="#" class="chat-list__link" page="chatId">
+    <img src="../../../assets/backgroundAvatar.svg" onerror="this.style.background = '#EFEFEF'" alt="{{name}}" class="chat-list__avatar">
+    <div class="chat-list__info">
+        {{{ Name }}}
+        {{{ Message }}}
+    </div>
+    <div class="chat-list__notification">
+        {{{ Time }}}
+        {{#if messageCounter}}
+            <p class="chat-list__counter">{{messageCounter}}</p>
+        {{/if}}
+    </div>
+</a>

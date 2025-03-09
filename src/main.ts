@@ -2,6 +2,8 @@ import Handlebars from 'handlebars'
 import * as Components from './components'
 import * as Pages from './pages'
 
+import renderDOM from "./core/renderDOM.ts";
+
 const pages = {
     'signIn': [ Pages.SignInPage ],
     'signUp': [ Pages.SignUpPage ],
@@ -26,6 +28,10 @@ Object.entries(Components).forEach(([ name, template ]) => {
 function navigate (page: string) {
     //@ts-ignore
     const [ source, context ] = pages[page]
+    if (typeof source === 'function') {
+        renderDOM(new source())
+        return
+    }
     const appElement = document.getElementById('app')!
 
     const template = Handlebars.compile(source)
@@ -36,11 +42,11 @@ document.addEventListener('DOMContentLoaded', () => navigate('navigate'))
 
 document.addEventListener('click', (e) => {
     //@ts-ignore
-    const page = e?.target.getAttribute('page')
-    console.log(page)
+    const page = e.target.getAttribute('page')
+
     if (page) {
         navigate(page)
-        console.log('this')
+
         e.preventDefault()
         e.stopImmediatePropagation()
     }

@@ -14,24 +14,6 @@
     justify-content: center;
 }
 
-.profile-form-input__label {
-    font-weight: 500;
-    font-size: 13px;
-    line-height: 13px;
-    letter-spacing: 0;
-}
-
-.profile-form-input__input {
-    width: 300px;
-    height: 13px;
-    font-weight: 500;
-    font-size: 13px;
-    line-height: 13px;
-    letter-spacing: 0;
-    text-align: end;
-    color: #999;
-}
-
 .profile__nav {
     background-color: #FBFBFB;
     border-right: #EAEAEA 1px solid;

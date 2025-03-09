@@ -1,51 +1,25 @@
-
 <header class="profile">
     <div class="profile__header">
         <div class="profile-avatar profile__avatar_state_hover">
             <img class="profile-avatar__default" src="/assets/without-avatar.svg" alt="Avatar">
         </div>
-        {{> Title size="small" text="Иван" }}
+        {{{ Title }}}
     </div>
 </header>
 <main class="profile">
     <ul class="profile__body">
-        <li class="profile__user-field">
-            {{> Text size="small" text="Почта"}}
-            {{> Text size="small" color="gray" text="pochta@yandex.ru"}}
-        </li>
-        <li class="profile__user-field">
-            {{> Text size="small" text="Логин"}}
-            {{> Text size="small" color="gray" text="ivanivanov"}}
-        </li>
-        <li class="profile__user-field">
-            {{> Text size="small" text="Имя"}}
-            {{> Text size="small" color="gray" text="Иван"}}
-        </li>
-        <li class="profile__user-field">
-            {{> Text size="small" text="Фамилия"}}
-            {{> Text size="small" color="gray" text="Иванов"}}
-        </li>
-        <li class="profile__user-field">
-            {{> Text size="small" text="Имя в чате"}}
-            {{> Text size="small" color="gray" text="Иван"}}
-        </li>
-        <li class="profile__user-field">
-            {{> Text size="small" text="Телефон"}}
-            {{> Text size="small" color="gray" text="+7 (909) 967 30 30"}}
-        </li>
+        {{#each profileFilds}}
+            {{{ this }}}
+        {{/each}}
     </ul>
 </main>
 <footer class="profile">
     <ul class="profile__footer">
+        {{#each linkList}}
         <li class="profile__link">
-            {{> Link size="big" type="default" page="updateProfile" name="updateProfile" text="Изменить данные"}}
+            {{{ this }}} 
         </li>
-        <li class="profile__link">
-            {{> Link size="big" type="default" page="updatePassword" name="updatePassword" text="Изменить пароль"}}
-        </li>
-        <li class="profile__link">
-            {{> Link size="big" type="danger" page="signIn" name="signOut" text="Выйти"}}
-        </li>
+        {{/each}}
     </ul>
 </footer>
 
@@ -53,22 +27,4 @@
     <a href="#" page="chats"><img class="profile__back" page="chats" src="/assets/back-link.svg" alt="Назад"></a>
 </nav>
 
-<dialog class="popup">
-    <form action="#" class="popup-form">
-        {{> Text text="Загрузите файл"}}
-        <fieldset class="popup-form-group">
-            <label class="popup-form__label" for="email">
-                Выбрать файл на компьютере
-            </label>
-            <input
-                    name="avatar"
-                    class="popup-form__input"
-                    type="file"
-                    accept=""
-            >
-        </fieldset>
-        <fieldset class="popup-form-group">
-            {{> Button text="Поменять" page="profile" className="default" type="submit"}}
-        </fieldset>
-    </form>
-</dialog>
+{{{ Popup }}}

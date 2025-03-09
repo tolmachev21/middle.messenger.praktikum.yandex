@@ -1,2 +1,2 @@
 import './updateProfile.css'
-export { default as UpdateProfile } from './updateProfile.hbs?raw'
+export { default as UpdateProfile } from './UpdateProfile.ts'

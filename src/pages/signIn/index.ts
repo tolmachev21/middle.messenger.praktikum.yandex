@@ -1,2 +1,2 @@
 import './signIn.css'
-export { default as SignIn } from './signIn.hbs?raw'
+export { default as SignIn } from './SignIn.ts' 
