@@ -1,5 +1,4 @@
 import Block from '../../core/Block'
-import { default as rawMessageInput } from './MessageInput.hbs?raw'
 
 export default class MessageInput extends Block {
     constructor(props: any) {
@@ -15,9 +14,5 @@ export default class MessageInput extends Block {
                 blur: props.onChange,
             },
         })
-    }
-
-    public render():string {
-        return rawMessageInput
     }
 }
