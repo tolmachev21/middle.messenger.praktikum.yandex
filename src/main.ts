@@ -3,11 +3,18 @@ import * as Components from './components'
 import * as Pages from './pages'
 
 import renderDOM from "./core/renderDOM.ts";
+import Block from "./core/Block.ts";
 
-const pages = {
+type Constructor = new (...args: any[]) => Block;
+type PageValue = [Constructor, any?] | [string, any?];
+type PagesType = {
+    [key: string]: PageValue
+}
+
+const pages: PagesType = {
     'signIn': [ Pages.SignInPage ],
     'signUp': [ Pages.SignUpPage ],
-    'navigate': [ Pages.NavigatePage],
+    'navigate': [ Pages.NavigatePage ],
     'error500': [ Pages.Error500Page ],
     'error404': [ Pages.Error404Page ],
     'profile': [ Pages.ProfilePage ],
@@ -26,9 +33,8 @@ Object.entries(Components).forEach(([ name, template ]) => {
 });
 
 function navigate (page: string) {
-    //@ts-ignore
-    const [ source, context ] = pages[page]
-    if (typeof source === 'function') {
+    const [source, context] = pages[page]
+    if (source instanceof Function) {
         renderDOM(new source())
         return
     }
@@ -40,9 +46,9 @@ function navigate (page: string) {
 
 document.addEventListener('DOMContentLoaded', () => navigate('navigate'))
 
-document.addEventListener('click', (e) => {
-    //@ts-ignore
-    const page = e.target.getAttribute('page')
+document.addEventListener('click', (e: MouseEvent) => {
+    const target = e.target as HTMLElement;
+    const page = target?.getAttribute('page')
 
     if (page) {
         navigate(page)
