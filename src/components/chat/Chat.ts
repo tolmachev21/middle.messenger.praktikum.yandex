@@ -6,7 +6,6 @@ interface ChatProps {
     name: string;
     message: string;
     time: string;
-    onClick?: (e: Event) => void;
 }
 
 export default class Chat extends Block {

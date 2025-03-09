@@ -21,5 +21,10 @@ export default class MessageInput extends Block {
                 blur: props.onChange,
             },
         })
+
+    }
+
+    public render():string {
+        return ''
     }
 }

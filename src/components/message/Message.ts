@@ -3,7 +3,7 @@ import { default as rawMessage } from './message.hbs?raw'
 
 interface MessageProps {
     status: boolean;
-    text: string;
+    content: string;
     time: string;
 }
 

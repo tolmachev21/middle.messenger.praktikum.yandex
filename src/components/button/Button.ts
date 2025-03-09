@@ -8,7 +8,7 @@ interface ButtonProps {
     page?: string;
     className?: string;
     text?: string;
-    onClick?: (e: Event) => void;
+    onClick: (e: Event) => void;
     Icon?: string;
 }
 
@@ -17,12 +17,12 @@ export default class Button extends Block {
         super('button', {
             ...props,
             attributes: {
-                [props.disabled ? 'disabled' : 'avaible']: '',
-                type: props.type,
-                name: props.name,
-                page: props.page,
+                [props?.disabled ? 'disabled' : 'avaible']: '',
+                type: props?.type || 'submit',
+                name: props?.name,
+                page: props?.page,
             },
-            className: `button ${props.className ? `button__${props.className}` : ''}`,
+            className: `button button__${ props.className }`,
             events: {
                 click: props.onClick,
             },

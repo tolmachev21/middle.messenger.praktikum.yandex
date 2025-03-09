@@ -3,6 +3,7 @@ import { default as rawChatFeed } from './chatFeed.hbs?raw'
 import { Button, Message, MessageInput } from '../../components'
 
 export default class ChatFeed extends Block {
+    // Еще неизвестен формат входных данных
     constructor(props: any) {
         super('div', {
             ...props,
@@ -13,9 +14,8 @@ export default class ChatFeed extends Block {
             avatarSrc: props.header.avatarSrc,
             title: props.header.title,
             SendButton: new Button({
-                type: 'submit',
                 Icon: '<img src="../../../assets/send.svg" alt="Отправить">',
-                onClick: (e: any) => {
+                onClick: (e: Event) => {
                     e.preventDefault();
                     console.log('submitData', this.props.formState.message)
                 },
@@ -43,7 +43,7 @@ export default class ChatFeed extends Block {
             }),
             // Еще не известен формат входных данных
             messages: props.messages.map((message: any) => new Message({
-                text: message.content,
+                content: message.content,
                 time: message.time,
                 status: message.status,
             }))
