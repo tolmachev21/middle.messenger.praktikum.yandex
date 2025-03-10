@@ -1,11 +1,13 @@
 .button {
-
+    margin: 0;
+    padding: 0;
+    cursor: pointer;
 }
 
 .button__default {
     width: 280px;
-    padding: 12px 0 12px 0;
-    font-family: 'Inter', sans-serif;
+    padding: 12px 0;
+    font-family: Inter, sans-serif;
     background-color: #3369F3;
     border-radius: 8px;
     font-weight: 500;

@@ -1,0 +1,17 @@
+<header class="chat-feed__header">
+    <img src="../../../assets/backgroundAvatar.svg" alt="Аватар" class="chat-feed__header-avatar">
+    <h1 class="chat-feed__header-title">{{ title }}</h1>
+    <div class="chat-feed__header-menu">
+
+    </div>
+</header>
+<main class="chat-feed__main">
+    {{#each messages}}
+        {{{ this }}}
+    {{/each}}
+</main>
+<form class="chat-feed__form">
+    <img src="../../../assets/clip.svg" alt="Вложение" class="chat-feed__form-clip">
+    {{{ MessageInput }}}
+    {{{ SendButton }}}
+</form>

@@ -1,0 +1,11 @@
+.profile__user-field {
+    padding: 10px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: #EAEAEA 1px solid;
+}
+
+.profile__user-field:last-child {
+    border-bottom: none;
+}
