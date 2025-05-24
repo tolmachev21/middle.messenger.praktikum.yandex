@@ -10,6 +10,8 @@ interface PropsWithEvents extends Props {
     events?: Events
 }
 
+export type BlockConstructor<T extends Block = Block> = new (...args: any[]) => T;
+
 export default class Block {
     static EVENTS = {
         INIT: 'init',
@@ -33,7 +35,7 @@ export default class Block {
         this._eventBus = () => _eventBus
 
         const { props, children } = this._getPropsAndChildren(propsWithChildren)
-        this.children = children
+        this.children = this._makeChildrenProxy(children)
 
         this._meta = {
             tagName,
@@ -90,10 +92,27 @@ export default class Block {
         this._eventBus().emit(Block.EVENTS.FLOW_CDM)
     }
 
+    dispatchComponentDidUpdate () {
+        console.log('this')
+        this._eventBus().emit(Block.EVENTS.FLOW_CDU)
+    }
+
     _componentDidUpdate (oldProps: PropsWithEvents, newProps: PropsWithEvents) {
         const response = this.componentDidUpdate(oldProps, newProps)
         if (!response) {
             return 
+        }
+
+        if (newProps?.attributes) {
+            Object.entries(newProps.attributes).forEach(([attrName, attrValue]) => {
+                if (attrName === 'open') {
+                    this._element!.removeAttribute('close')
+                } else if (attrName === 'close') {
+                    this._element!.removeAttribute('open')
+                }
+                
+                this._element!.setAttribute(attrName as string, attrValue as string)
+            })
         }
 
         this._render()
@@ -102,6 +121,7 @@ export default class Block {
     componentDidUpdate(oldProps: PropsWithEvents, newProps: PropsWithEvents): boolean {
         console.log('oldProps', oldProps)
         console.log('newProps', newProps)
+        // Сделать сравнение
         return true
     }
 
@@ -142,7 +162,9 @@ export default class Block {
             return 
         }
 
-        Object.assign(this.props, newProps)
+        const { props, children } = this._getPropsAndChildren(newProps)
+        Object.assign(this.children, children)
+        Object.assign(this.props, props)
     }
 
     _addEvents () {
@@ -188,7 +210,7 @@ export default class Block {
                 stub?.replaceWith(child.getContent())
             }
         })
-        
+
         return fragment.content
     }
 
@@ -225,6 +247,29 @@ export default class Block {
             },
 
             set(target: Record<string, unknown>, property: string, value: unknown) {
+                const oldTarget = { ...target }
+                target[property] = value
+                emitBind(Block.EVENTS.FLOW_CDU, oldTarget, target)
+                return true
+            },
+            
+            deleteProperty() {
+                throw new Error('Нет доступа')
+            }
+        })
+    }
+
+    _makeChildrenProxy (children: Children) {
+        const eventBus = this._eventBus()
+        const emitBind = eventBus.emit.bind(eventBus)
+        
+        return new Proxy(children, {
+            get(target: Children, property: string) {
+                const value = target[property]
+                return typeof value === 'function' ? (value as Function).bind(target) : value
+            },
+
+            set(target: Children, property: string, value: Block | Block[]) {
                 const oldTarget = { ...target }
                 target[property] = value
                 emitBind(Block.EVENTS.FLOW_CDU, oldTarget, target)

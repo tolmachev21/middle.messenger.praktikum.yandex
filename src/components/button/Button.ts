@@ -1,14 +1,13 @@
 import Block from "../../core/Block.ts";
 import { default as rawButton } from './button.hbs?raw' 
 
-interface ButtonProps {
+export interface ButtonProps {
     disabled?: boolean;
     type?: string;
     name?: string;
-    page?: string;
     className?: string;
     text?: string;
-    onClick: (e: Event) => void;
+    onClick: (e: Event, valueState: Record<string, string>) => void;
     Icon?: string;
 }
 
@@ -20,7 +19,6 @@ export default class Button extends Block {
                 [props?.disabled ? 'disabled' : 'avaible']: '',
                 type: props?.type || 'submit',
                 name: props?.name,
-                page: props?.page,
             },
             className: `button button__${ props.className }`,
             events: {

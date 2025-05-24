@@ -37,7 +37,8 @@
     width: 25px;
     height: 25px;
     border-radius: 50%;
-    background-color: #F5F5F5;
+    display: flex;
+    justify-content: center;
     cursor: pointer;
 }
 

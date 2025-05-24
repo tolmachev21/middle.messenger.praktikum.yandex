@@ -1,6 +1,5 @@
 export { SignIn as SignInPage } from './signIn'
 export { SignUp as SignUpPage } from './signUp'
-export { Navigate as NavigatePage } from './navigate'
 export { Error500 as Error500Page } from './500'
 export { Error404 as Error404Page } from './404'
 export { Profile as ProfilePage } from './profile'

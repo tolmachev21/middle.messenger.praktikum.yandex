@@ -3,8 +3,12 @@ import Block from "../../core/Block.ts";
 import { default as Raw500 } from './500.hbs?raw'
 
 
+interface Error404Props {
+    onClick: () => void;
+}
+
 export default class Error500 extends Block {
-    constructor (props: any) {
+    constructor (props: Error404Props) {
         super ('main', {
             ...props,
             className: 'page page__error',
@@ -20,7 +24,10 @@ export default class Error500 extends Block {
                 text: 'Назад к чатам',
                 size: 'small',
                 type: 'default',
-                page: 'chats',
+                onClick: () => {
+                    this.hide()
+                    props.onClick()
+                }
             }),
         })
     }

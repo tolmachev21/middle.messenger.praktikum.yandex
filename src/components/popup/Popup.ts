@@ -1,21 +1,17 @@
 import Block from '../../core/Block'
 import { default as rawPopup } from './popup.hbs?raw'
 import { Button, Text } from '../../components'
+import type { ButtonProps } from '../../components'
 
 interface PopupProps {
-    title: string;
-    text: string;
-    button: {
-        name: string;
-        page: string;
-        type: string;
-        text: string;
-        onClick?: (e: Event) => void;
-    };
-    page: string;
-    attributes: {
-        open: string;
-    };
+    formState: Record<string, string | File>
+    errorState: Record<string, string>
+    popupTitle: string
+    popupFormButton: ButtonProps
+    inputsForm: Block[]
+    attributes?: {
+        open: string
+    }
 }
 
 export default class Popup extends Block {
@@ -23,22 +19,38 @@ export default class Popup extends Block {
         super('dialog', {
             ...props,
             attributes: {
-                [props.attributes.open ? 'open' : 'close']: props.attributes.open,
+                [props?.attributes?.open ? 'open' : 'close']: '',
             },
             className: 'popup',
-            TextLoadFile: new Text({
-                text: props.title,
+            PopupTitle: new Text({
+                text: props.popupTitle,
             }),
-            Button: new Button({
-                text: props.button.text,
-                type: props.button.type,
-                name: props.button.name,
-                page: props.button.page,
+            SubmitButton: new Button({
+                text: props.popupFormButton.text,
+                type: props.popupFormButton.type,
+                name: props.popupFormButton.name,
                 className: 'default',
                 onClick: (e: Event) => {
-                    console.log(e, 'Поменять аватар')
+                    if (Object.values(this.props.errorState).some(fieldErorrState => fieldErorrState !== '')) return;
+                    props.popupFormButton.onClick(e, this.props.formState);
+                    this.setProps({
+                        attributes: {
+                            close: true
+                        }
+                    });
                 }
             }),
+            events: {
+                click: (e: Event) => {
+                    if (e?.target instanceof HTMLElement && e?.target?.nodeName === 'DIALOG') {
+                        this.setProps({
+                            attributes: {
+                                close: true,
+                            },
+                        });
+                    };
+                },
+            },
         })
     }
 

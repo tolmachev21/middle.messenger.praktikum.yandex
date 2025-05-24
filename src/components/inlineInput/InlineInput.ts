@@ -5,11 +5,11 @@ interface InlineInputProps {
     name: string;
     type: string;
     value: string;
-    title?: string;
-    error?: string;
-    hiddenErrorClassName?: string;
-    required?: boolean;
-    onChange?: (e: Event) => void;
+    title: string;
+    errorTemplate: string; 
+    required: boolean;
+    hasValidInput: (validateValue: string) => boolean;
+    onChange: (valueInputState: string, errorInputState: string) => void;
 }
 
 export default class InlineInput extends Block {
@@ -22,7 +22,21 @@ export default class InlineInput extends Block {
             },
             className: 'profile__user-field',
             events: {
-                focusout: props.onChange,
+                focusout: (e: Event) => {
+                    const target = e?.target instanceof HTMLInputElement ? e.target : null;
+                    if (!target || !target.value) return;
+
+                    const value = target.value; 
+                    const hasError = !props.hasValidInput(value);
+
+                    this.setProps({
+                        error: hasError ? this.props.errorTemplate : '',
+                        value,
+                        hiddenErrorClassName: hasError ? '' : 'display_none',
+                    });
+
+                    props.onChange(value, this.props.error);
+                }
             },
         })
     }

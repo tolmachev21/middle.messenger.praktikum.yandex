@@ -1,10 +1,13 @@
 import Block from '../../core/Block'
 import { default as rawChats } from './chats.hbs?raw'
-import { Text, Chat, ChatsNavigate } from '../../components'
-import mockData from './mockData';
+import { Text, ChatsNavigate } from '../../components'
+
+interface ChatsProps {
+    chatProps: Record<string, string>;
+}
 
 export default class Chats extends Block {
-    constructor(props: any) {
+    constructor(props: ChatsProps) {
         super('div', {
             ...props,
             className: 'chats-layout',
@@ -13,10 +16,8 @@ export default class Chats extends Block {
                 size: 'small',
                 color: 'gray',
             }),
-            ChatsNavigate: new ChatsNavigate({
-                chats: mockData.map((props) => new Chat({ ...props })),
-            }),
-        })  
+            ChatsNavigate: new ChatsNavigate({}),
+        })
     }
 
     public render(): string {

@@ -2,6 +2,13 @@ import Block from '../../core/Block'
 import { default as rawSignIn } from './signIn.hbs?raw'
 import { Button, Link, StackedInput, Title } from '../../components'
 
+import { HTTPTransport } from '../../core/HttpTransport'
+
+import { router } from '../../main'
+
+
+const query = new HTTPTransport('auth')
+
 export default class SignIn extends Block {
     constructor (props: any) {
         super ('main', {
@@ -24,15 +31,22 @@ export default class SignIn extends Block {
                 className: 'default',
                 name: 'Sign in', 
                 type: 'submit', 
-                page: 'chats',
                 onClick: (e: Event) => {
                     e.preventDefault();
                     const state = this.props;
                     if (Object.values(state.errorState).some((value) => value !== '')) {
                         console.log('Все поля должны быть заполнены и не содержать ошибок')
                     } else {
-                        console.log('login', state.formState.login)
-                        console.log('password', state.formState.password)
+                        const result = query.post('/signin', {
+                            data: JSON.stringify(state.formState),
+                            headers: {
+                                'accept': 'application/json',
+                                'Content-Type': 'application/json'
+                            },
+                        })
+                        result.then((answer: unknown) => {
+                            if (answer === 'OK') router.go('/messenger');
+                        }).catch((err) => console.log('err', err))
                     }
                 },
             }),
@@ -40,37 +54,36 @@ export default class SignIn extends Block {
                 text: 'Нет аккаунта?',
                 type: 'default',
                 size: 'small',
-                page: 'signUp',
                 name: 'Registration',
+                onClick: () => router.go('/sign-up')
             }),
             InputLogin: new StackedInput({
                 name: 'login',
                 type: 'text',
                 required: true,
                 title: 'Логин',
-                onChange: (e: Event) => {
-                    const target = e.target as HTMLInputElement;
-                    const value = target.value;
-                    const state = this.props;
-                    state.errorState.login = '';
-                    const regExp = new RegExp(/^(?!\d+$)[a-zA-Z0-9_-]{3,20}$/)
-                    if (!regExp.test(value)) {
-                        state.errorState.login = "Неверный логин"
-                    }
-                    if (this.children.InputLogin instanceof Block) {
-                        this.children.InputLogin.setProps({
-                            error: state.errorState.login,
-                            value,
-                            hiddenErrorClassName: state.errorState.login ? '' : 'display_none',
-                        });
-                    }
-                    
+                errorTemplate: 'Неверный логин',
+                hasValidInput: (validateValue: string): boolean => {
+                    const regExp = new RegExp(/^(?!\d+$)[a-zA-Z0-9_-]{3,20}$/);
+                    if (!regExp.test(validateValue)) {
+                        return false;
+                    };
+
+                    return true;
+                },
+                onChange: (valueInputState: string, errorInputState: string) => {
+                    if (!valueInputState && !errorInputState) return;
+
                     this.setProps({
                         formState: {
-                            ...state.formState,
-                            login: value
-                        }
-                    })
+                            ...this.props.formState,
+                            login: valueInputState
+                        },
+                        errorState: {
+                            ...this.props.errorState,
+                            login: errorInputState
+                        },
+                    });
                 },
             }),
             InputPassword: new StackedInput({
@@ -78,30 +91,29 @@ export default class SignIn extends Block {
                 type: 'password',
                 required: true,
                 title: 'Пароль',
-                onChange: (e: Event) => {
-                    const target = e.target as HTMLInputElement;
-                    const value = target.value;
-                    const state = this.props;
-                    state.errorState.password = '';
+                errorTemplate: 'Неверный пароль',
+                hasValidInput: (validateValue: string): boolean => {
                     const regExp = new RegExp(/^(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,40}$/)
-                    if (!regExp.test(value)) {
-                        state.errorState.password = "Неверный пароль"
-                    }
-                    if (this.children.InputPassword instanceof Block) {
-                        this.children.InputPassword.setProps({
-                            error: state.errorState.password,
-                            value,
-                            hiddenErrorClassName: state.errorState.password ? '' : 'display_none',
-                        });
-                    }
-                    
+                    if (!regExp.test(validateValue)) {
+                        return false;
+                    };
+
+                    return true;
+                },
+                onChange: (valueInputState: string, errorInputState: string) => {
+                    if (!valueInputState && !errorInputState) return;
+
                     this.setProps({
                         formState: {
-                            ...state.formState,
-                            password: value
-                        }
-                    })
-                },
+                            ...this.props.formState,
+                            password: valueInputState,
+                        },
+                        errorState: {
+                            ...this.props.errorState,
+                            password: errorInputState,
+                        },
+                    });
+                }
             }),
         })
     }
