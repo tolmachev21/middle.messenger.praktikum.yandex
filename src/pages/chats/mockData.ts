@@ -12,7 +12,7 @@ const mockData = [
         name: 'John Doe',
         message: 'И Human Interface Guidelines и Material Design рекомендуют делать так а не иначе',
         time: '12:00',
-        messageCounter: 0,
+        'unread_count': 0,
     },
     {
         avatar: '',

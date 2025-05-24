@@ -73,13 +73,14 @@ export class HTTPTransport {
 
       const xhr = new XMLHttpRequest();
       const isGet = method === METHOD.GET;
+      const query = isGet ? `${url}${queryStringify(data)}` : url;
 
       xhr.open(
         method, 
-        isGet && !!data
-          ? `${url}${queryStringify(data)}`
-          : url,
+        query,
       );
+
+      xhr.withCredentials = true;
 
       Object.keys(headers).forEach(key => {
         xhr.setRequestHeader(key, headers[key]);
@@ -101,12 +102,13 @@ export class HTTPTransport {
   }
 }
 
-function queryStringify(data: Record<string, unknown>) {
+function queryStringify(data: Record<string, unknown> = {}) {
   if (typeof data !== 'object') {
     throw new Error('Data must be object');
   }
     
   const keys = Object.keys(data);
+  if (keys.length === 0) return ''
   return keys.reduce((result, key, index) => {
     return `${result}${key}=${data[key]}${index < keys.length - 1 ? '&' : ''}`;
   }, '?');

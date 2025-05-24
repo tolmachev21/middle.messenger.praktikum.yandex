@@ -1,1 +1,1 @@
-<a class="link__{{ type }}" page="{{ page }}" href="#" name="{{ name }}">{{ text }} </a>
+<a class="{{#if classNameLink}}{{classNameLink}}{{else}}link__{{ type }}{{/if}}" name="{{ name }}">{{ text }}{{#if imageClassName}}<img src="../../../assets/{{ imageSrc }}" alt="{{ text }}" class="{{ imageClassName }}"{{/if}}</a>

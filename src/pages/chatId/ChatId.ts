@@ -1,24 +1,27 @@
 import Block from '../../core/Block'
 import { default as rawChatId } from './chatId.hbs?raw'
-import { ChatsNavigate, Chat, ChatFeed } from '../../components'
-import { mockData, mockDataMessages } from './mockData';
+import { ChatsNavigate, ChatFeed } from '../../components'
+
+interface IChatId {
+    id: number,
+    avatar: string,
+    title: string,
+}
 
 export default class ChatId extends Block {
-    constructor(props: any) {
+    constructor(props: IChatId) {
         super('div', {
             ...props,
             className: 'chats-layout',
             ChatFeed: new ChatFeed({
+                id: props['id'],
                 header: {
-                    avatarSrc: 'https://via.placeholder.com/150',
-                    title: 'Вадим',
+                    avatarSrc: props['avatar'],
+                    title: props['title'],
                 },
-                messages: mockDataMessages,
+                messages: [],
             }),
-            ChatsNavigate: new ChatsNavigate({
-                // Еще не известен формат входных данных
-                chats: mockData.map((props: any) => new Chat({ ...props })),
-            }),
+            ChatsNavigate: new ChatsNavigate({}),
         })
     }
 

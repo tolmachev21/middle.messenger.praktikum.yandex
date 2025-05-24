@@ -3,10 +3,13 @@ import Block from "../../core/Block.ts";
 import { default as Raw404 } from './404.hbs?raw'
 
 
+interface Error404Props {
+    onClick: () => void;
+}
+
 export default class Error404 extends Block {
-    constructor (props: any) {
+    constructor (props: Error404Props) {
         super ('main', {
-            ...props,
             className: 'page page__error',
             Title: new Title({
                 text: '404',
@@ -20,7 +23,10 @@ export default class Error404 extends Block {
                 text: 'Назад к чатам',
                 size: 'small',
                 type: 'default',
-                page: 'chats',
+                onClick: () => {
+                    this.hide()
+                    props.onClick()
+                }
             }),
         })
     }
