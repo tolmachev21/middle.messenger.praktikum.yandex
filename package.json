@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "lint": "node_modules/.bin/eslint --fix && stylelint \"**/*.css\" --fix && tsc --noEmit",
+    "lint": "eslint --fix . && stylelint \"**/*.css\" --fix && tsc --noEmit",
     "stylelint": "",
     "dev": "tsc --noEmit && vite",
     "prebuild": "tsc --noEmit",
@@ -13,9 +13,10 @@
     "start": "vite build && vite preview --port 3000"
   },
   "devDependencies": {
+    "@stylistic/eslint-plugin-js": "^3.1.0",
     "@typescript-eslint/eslint-plugin": "^8.25.0",
     "@typescript-eslint/parser": "^8.25.0",
-    "eslint": "^8.2.0",
+    "eslint": "^8.57.0",
     "eslint-config-airbnb": "^19.0.4",
     "nanoid": "^5.1.2",
     "stylelint": "^16.15.0",
@@ -27,6 +28,6 @@
     "handlebars": "^4.7.8"
   },
   "engines": {
-    "node": "^16.0.0"
+    "node": ">=18.0.0"
   }
 }

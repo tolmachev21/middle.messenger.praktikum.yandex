@@ -1,2 +1,3 @@
-import './stackedInput.css'
-export { default as StackedInput } from './StackedInput.ts'
+import './stackedInput.css';
+
+export { default as StackedInput } from './StackedInput.ts';

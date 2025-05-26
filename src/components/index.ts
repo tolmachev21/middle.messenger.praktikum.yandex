@@ -1,16 +1,16 @@
-export { Title } from './title'
-export { Text } from './text'
-export { Link } from './link'
-export type { ButtonProps } from './button'
-export { Button } from './button'
-export { StackedInput } from './stackedInput'
-export { InlineInput } from './inlineInput'
-export { DefaultInputFile } from './defaultInputFile'
-export { MessageInput } from './messageInput'
-export { InlineText } from './inlineText'
-export { ProfileAvatar } from './profileAvatar'
-export { Popup } from './popup'
-export { Chat } from './chat'
-export { ChatsNavigate } from './chatsNavigate'
-export { ChatFeed } from './chatFeed'
-export { Message } from './message'
+export { Title } from './title';
+export { Text } from './text';
+export { Link } from './link';
+export type { ButtonProps } from './button';
+export { Button } from './button';
+export { StackedInput } from './stackedInput';
+export { InlineInput } from './inlineInput';
+export { DefaultInputFile } from './defaultInputFile';
+export { MessageInput } from './messageInput';
+export { InlineText } from './inlineText';
+export { ProfileAvatar } from './profileAvatar';
+export { Popup } from './popup';
+export { Chat } from './chat';
+export { ChatsNavigate } from './chatsNavigate';
+export { ChatFeed } from './chatFeed';
+export { Message } from './message';

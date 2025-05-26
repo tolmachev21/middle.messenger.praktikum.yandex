@@ -1,5 +1,5 @@
-import Block from '../../core/Block'
-import { default as linkRaw} from './link.hbs?raw'
+import Block from '../../core/Block';
+import { default as linkRaw } from './link.hbs?raw';
 
 interface LinkProps {
     size: string;
@@ -13,17 +13,17 @@ interface LinkProps {
 }
 
 export default class Link extends Block {
-    constructor (props: LinkProps) {
-        super('p', {
-            ...props,
-            className: `link ${props.size ? `link__${props.size}` : ''}`,
-            events: {
-                click: props.onClick
-            } 
-        })
-    }
+  constructor(props: LinkProps) {
+    super('p', {
+      ...props,
+      className: `link ${props.size ? `link__${props.size}` : ''}`,
+      events: {
+        click: props.onClick,
+      },
+    });
+  }
 
-    public render (): string {
-        return linkRaw
-    }
+  public render(): string {
+    return linkRaw;
+  }
 }

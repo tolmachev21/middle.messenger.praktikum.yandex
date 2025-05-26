@@ -1,4 +1,4 @@
-import Block from '../../core/Block'
+import Block from '../../core/Block';
 
 interface MessageInputProps {
     value?: string;
@@ -7,24 +7,23 @@ interface MessageInputProps {
 }
 
 export default class MessageInput extends Block {
-    constructor(props: MessageInputProps) {
-        super('input', {
-            ...props,
-            className: 'chat-feed__form-input',
-            attributes: {
-                name: 'message',
-                type: 'text',
-                placeholder: 'Сообщение',
-                value: props.value || '',
-            },
-            events: {
-                blur: props.onChange,
-            },
-        })
+  constructor(props: MessageInputProps) {
+    super('input', {
+      ...props,
+      className: 'chat-feed__form-input',
+      attributes: {
+        name: 'message',
+        type: 'text',
+        placeholder: 'Сообщение',
+        value: props.value || '',
+      },
+      events: {
+        blur: props.onChange,
+      },
+    });
+  }
 
-    }
-
-    public render():string {
-        return ''
-    }
+  public render():string {
+    return '';
+  }
 }

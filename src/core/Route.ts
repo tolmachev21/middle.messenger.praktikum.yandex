@@ -1,47 +1,49 @@
-import { isEqual } from '../utils'
-import { render } from './renderDOM'
-import { BlockConstructor } from './Block'
-import Block from './Block'
+import { isEqual } from '../utils';
+import { render } from './renderDOM';
+import Block, { BlockConstructor } from './Block';
 
 type PropsWithRootQuery = Record<string, string>
 
 export default class Route {
-	private _pathname: string 
-	private _blockClass: BlockConstructor
-	private _block: Block | null = null;
-	private _props: PropsWithRootQuery
+  private _pathname: string;
 
-	constructor(pathname: string, view: BlockConstructor, props: PropsWithRootQuery) {
-		this._pathname = pathname;
-		this._blockClass = view;
-		this._props = props;
-	};
+  private _blockClass: BlockConstructor;
 
-	navigate(pathname: string) {
-		if (this.match(pathname)) return;
+  private _block: Block | null = null;
 
-		if (!this._block) {
-			throw new Error(`Cannot found _block ${this._block}`)
-		}
+  private _props: PropsWithRootQuery;
 
-		this._block.show();
-	};
+  constructor(pathname: string, view: BlockConstructor, props: PropsWithRootQuery) {
+    this._pathname = pathname;
+    this._blockClass = view;
+    this._props = props;
+  }
 
-	public leave() {
-		if (!this._block) {
-			throw new Error(`Cannot found _block ${this._block}`)
-		}
-	};
+  navigate(pathname: string) {
+    if (this.match(pathname)) return;
 
-	match(pathname: string) {
-		return isEqual(pathname, this._pathname);
-	};
+    if (!this._block) {
+      throw new Error(`Cannot found _block ${this._block}`);
+    }
 
-	render() {
-		if (!this._block) {
-			this._block = new this._blockClass();
-		}
+    this._block.show();
+  }
 
-		render(this._props.rootQuery, this._block);
-	};
-};
+  public leave() {
+    if (!this._block) {
+      throw new Error(`Cannot found _block ${this._block}`);
+    }
+  }
+
+  match(pathname: string) {
+    return isEqual(pathname, this._pathname);
+  }
+
+  render() {
+    if (!this._block) {
+      this._block = new this._blockClass();
+    }
+
+    render(this._props.rootQuery, this._block);
+  }
+}

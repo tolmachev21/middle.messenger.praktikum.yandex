@@ -1,3 +1,3 @@
-import './profileAvatar.css'
+import './profileAvatar.css';
 
-export { default as ProfileAvatar } from './ProfileAvatar.ts'
+export { default as ProfileAvatar } from './ProfileAvatar.ts';

@@ -1,7 +1,7 @@
-import Block from '../../core/Block'
-import { default as rawPopup } from './popup.hbs?raw'
-import { Button, Text } from '../../components'
-import type { ButtonProps } from '../../components'
+import Block from '../../core/Block';
+import { default as rawPopup } from './popup.hbs?raw';
+import { Button, Text } from '../../components';
+import type { ButtonProps } from '../../components';
 
 interface PopupProps {
     formState: Record<string, string | File>
@@ -15,46 +15,46 @@ interface PopupProps {
 }
 
 export default class Popup extends Block {
-    constructor(props: PopupProps) {
-        super('dialog', {
-            ...props,
+  constructor(props: PopupProps) {
+    super('dialog', {
+      ...props,
+      attributes: {
+        [props?.attributes?.open ? 'open' : 'close']: '',
+      },
+      className: 'popup',
+      PopupTitle: new Text({
+        text: props.popupTitle,
+      }),
+      SubmitButton: new Button({
+        text: props.popupFormButton.text,
+        type: props.popupFormButton.type,
+        name: props.popupFormButton.name,
+        className: 'default',
+        onClick: (e: Event) => {
+          if (Object.values(this.props.errorState).some((fieldErorrState) => fieldErorrState !== '')) return;
+          props.popupFormButton.onClick(e, this.props.formState);
+          this.setProps({
             attributes: {
-                [props?.attributes?.open ? 'open' : 'close']: '',
+              close: true,
             },
-            className: 'popup',
-            PopupTitle: new Text({
-                text: props.popupTitle,
-            }),
-            SubmitButton: new Button({
-                text: props.popupFormButton.text,
-                type: props.popupFormButton.type,
-                name: props.popupFormButton.name,
-                className: 'default',
-                onClick: (e: Event) => {
-                    if (Object.values(this.props.errorState).some(fieldErorrState => fieldErorrState !== '')) return;
-                    props.popupFormButton.onClick(e, this.props.formState);
-                    this.setProps({
-                        attributes: {
-                            close: true
-                        }
-                    });
-                }
-            }),
-            events: {
-                click: (e: Event) => {
-                    if (e?.target instanceof HTMLElement && e?.target?.nodeName === 'DIALOG') {
-                        this.setProps({
-                            attributes: {
-                                close: true,
-                            },
-                        });
-                    };
-                },
-            },
-        })
-    }
+          });
+        },
+      }),
+      events: {
+        click: (e: Event) => {
+          if (e?.target instanceof HTMLElement && e?.target?.nodeName === 'DIALOG') {
+            this.setProps({
+              attributes: {
+                close: true,
+              },
+            });
+          }
+        },
+      },
+    });
+  }
 
-    public render(): string {
-        return rawPopup
-    }
+  public render(): string {
+    return rawPopup;
+  }
 }

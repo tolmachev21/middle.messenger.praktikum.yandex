@@ -1,74 +1,77 @@
-import Route from './Route.ts'
-import { BlockConstructor } from './Block'
+import Route from './Route.ts';
+import { BlockConstructor } from './Block';
 
 export default class Router {
-	private static __instance: Router;
-	private _rootQuery: string = '';
-	private history: History = window.history;
-	private routes: Array<Route> = []; 
-	private _currentRoute: Route | null = null;
+  private static __instance: Router;
 
+  private _rootQuery: string = '';
 
-	constructor(rootQuery: string) {
-		if (Router.__instance) {
-			return Router.__instance;
-		}
+  private history: History = window.history;
 
-		this._rootQuery = rootQuery;
+  private routes: Array<Route> = [];
 
-		Router.__instance = this;
-	};
+  private _currentRoute: Route | null = null;
 
-	public use(pathname: string, block: BlockConstructor) {
-		const route = new Route(pathname, block, {rootQuery: this._rootQuery});
-		this.routes.push(route);
-		// Возврат this — основа паттерна "Builder" («Строитель»)
-		return this;
-	};
+  constructor(rootQuery: string) {
+    if (Router.__instance) {
+      return Router.__instance;
+    }
 
-	start() {
-		// Реагируем на изменения в адресной строке и вызываем перерисовку
-		window.addEventListener('popstate', () => this._onRoute(window.location.pathname));
+    this._rootQuery = rootQuery;
 
-		this._onRoute(window.location.pathname);
-	};
+    Router.__instance = this;
+  }
 
-	_onRoute(pathname: string) {
-		const route = this._getRoute(pathname);
+  public use(pathname: string, block: BlockConstructor) {
+    const route = new Route(pathname, block, { rootQuery: this._rootQuery });
+    this.routes.push(route);
+    // Возврат this — основа паттерна "Builder" («Строитель»)
+    return this;
+  }
 
-		if (!route) {
-			throw new Error(`Роут по ${pathname} не зарегистирован`);
-			return;
-		}
+  start() {
+    // Реагируем на изменения в адресной строке и вызываем перерисовку
+    window.addEventListener('popstate', () => this._onRoute(window.location.pathname));
 
-		if (this._currentRoute) {
-			this._currentRoute.leave();
-		}
+    this._onRoute(window.location.pathname);
+  }
 
-		this._currentRoute = route;
+  _onRoute(pathname: string) {
+    const route = this._getRoute(pathname);
 
-		route.render(); // Я не понимаю, что делает эта строка
-	};
+    if (!route) {
+      throw new Error(`Роут по ${pathname} не зарегистирован`);
+      return;
+    }
 
-	go(pathname: string) {
-		this.history.pushState({}, '', pathname);
-		this._onRoute(pathname);
-	};
+    if (this._currentRoute) {
+      this._currentRoute.leave();
+    }
 
-	back(pathname: string) {
-		if (pathname) {
-			this.history.replaceState({}, '', pathname);
-			this._onRoute(pathname);
-			return;
-		}
-		this.history.back();
-	};
+    this._currentRoute = route;
 
-	forward() {
-		this.history.forward();
-	};
+    route.render(); // Я не понимаю, что делает эта строка
+  }
 
-	private _getRoute(pathname: string) {
-		return this.routes.find(route => route.match(pathname))
-	};
-};
+  go(pathname: string) {
+    this.history.pushState({}, '', pathname);
+    this._onRoute(pathname);
+  }
+
+  back(pathname: string) {
+    if (pathname) {
+      this.history.replaceState({}, '', pathname);
+      this._onRoute(pathname);
+      return;
+    }
+    this.history.back();
+  }
+
+  forward() {
+    this.history.forward();
+  }
+
+  private _getRoute(pathname: string) {
+    return this.routes.find((route) => route.match(pathname));
+  }
+}

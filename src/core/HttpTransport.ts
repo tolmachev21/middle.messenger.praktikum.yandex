@@ -1,8 +1,8 @@
 enum METHOD {
-  GET = "GET",
-  POST = "POST",
-  PUT = "PUT",
-  DELETE = "DELETE",
+  GET = 'GET',
+  POST = 'POST',
+  PUT = 'PUT',
+  DELETE = 'DELETE',
 }
 
 type Options = {
@@ -11,10 +11,11 @@ type Options = {
   headers?: Record<string, string>;
 };
 
-type OptionsWithoutMethod = Omit<Options, "method">;
+type OptionsWithoutMethod = Omit<Options, 'method'>;
 
 export class HTTPTransport {
-  private apiUrl: string = "";
+  private apiUrl: string = '';
+
   constructor(apiPath: string) {
     this.apiUrl = `https://ya-praktikum.tech/api/v2/${apiPath}`;
   }
@@ -63,7 +64,7 @@ export class HTTPTransport {
     url: string,
     options: Options = { method: METHOD.GET },
   ): Promise<TResponse> {
-    const {headers = {}, method, data} = options;
+    const { headers = {}, method, data } = options;
 
     return new Promise((resolve, reject) => {
       if (!method) {
@@ -76,17 +77,17 @@ export class HTTPTransport {
       const query = isGet ? `${url}${queryStringify(data)}` : url;
 
       xhr.open(
-        method, 
+        method,
         query,
       );
 
       xhr.withCredentials = true;
 
-      Object.keys(headers).forEach(key => {
+      Object.keys(headers).forEach((key) => {
         xhr.setRequestHeader(key, headers[key]);
       });
 
-      xhr.onload = function() {
+      xhr.onload = function () {
         resolve(xhr.response);
       };
 
@@ -106,10 +107,8 @@ function queryStringify(data: Record<string, unknown> = {}) {
   if (typeof data !== 'object') {
     throw new Error('Data must be object');
   }
-    
+
   const keys = Object.keys(data);
-  if (keys.length === 0) return ''
-  return keys.reduce((result, key, index) => {
-    return `${result}${key}=${data[key]}${index < keys.length - 1 ? '&' : ''}`;
-  }, '?');
+  if (keys.length === 0) return '';
+  return keys.reduce((result, key, index) => `${result}${key}=${data[key]}${index < keys.length - 1 ? '&' : ''}`, '?');
 }
