@@ -126,7 +126,6 @@ export default class Block {
   componentDidUpdate(oldProps: PropsWithEvents, newProps: PropsWithEvents): boolean {
     console.log('oldProps', oldProps);
     console.log('newProps', newProps);
-    // Сделать сравнение
     return true;
   }
 

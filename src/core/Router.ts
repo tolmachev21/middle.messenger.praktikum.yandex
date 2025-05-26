@@ -25,12 +25,10 @@ export default class Router {
   public use(pathname: string, block: BlockConstructor) {
     const route = new Route(pathname, block, { rootQuery: this._rootQuery });
     this.routes.push(route);
-    // Возврат this — основа паттерна "Builder" («Строитель»)
     return this;
   }
 
   start() {
-    // Реагируем на изменения в адресной строке и вызываем перерисовку
     window.addEventListener('popstate', () => this._onRoute(window.location.pathname));
 
     this._onRoute(window.location.pathname);
@@ -50,7 +48,7 @@ export default class Router {
 
     this._currentRoute = route;
 
-    route.render(); // Я не понимаю, что делает эта строка
+    route.render(); 
   }
 
   go(pathname: string) {
