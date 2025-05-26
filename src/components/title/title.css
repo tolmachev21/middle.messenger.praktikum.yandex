@@ -1,27 +1,27 @@
 .title {
-    font-weight: 500;
-    letter-spacing: 0;
-    text-align: center;
+  font-weight: 500;
+  letter-spacing: 0;
+  text-align: center;
 }
 
 .title__big {
-    font-size: 40px;
-    line-height: 40px;
+  font-size: 40px;
+  line-height: 40px;
 }
 
 .title__default {
-    font-size: 20px;
-    line-height: 20px;
+  font-size: 20px;
+  line-height: 20px;
 }
 
 .title__small {
-    font-weight: 600;
-    font-size: 16px;
-    line-height: 16px;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 16px;
 }
 
 .title__very-small {
-    font-weight: 600;
-    font-size: 13px;
-    line-height: 13px;
+  font-weight: 600;
+  font-size: 13px;
+  line-height: 13px;
 }

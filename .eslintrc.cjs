@@ -1,32 +1,3 @@
-// import airbnb from 'eslint-config-airbnb'
-// import typescriptParser from '@typescript-eslint/parser'
-// import typescriptPlugin from '@typescript-eslint/eslint-plugin'
-// import stylistic from '@stylistic/eslint-plugin-js'
-
-// export default [
-//   {
-//     ignores: ["node_modules", "dist", "build"]
-//   },
-//   {
-//     files: ["**/*.ts", "**/*.tsx"],
-//     languageOptions: {
-//       parser: typescriptParser,
-//     },
-//     plugins: {
-//       '@typescript-eslint': typescriptPlugin,
-//       '@stylistic/js': stylistic,
-
-//     },
-//     rules: {
-//       'max-len': ['error', { code: 100 }],
-//       '@typescript-eslint/no-unused-vars': 'error',
-//       '@stylistic/eol-last': ['error', 'always'],
-//     },
-//     ...airbnb
-//   }
-// ]
-
-
 module.exports = {
   root: true,
   // Определяет среду выполнения.
