@@ -1,35 +1,35 @@
 .page {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100dvh;
 }
 
 .form {
-    box-sizing: border-box;
-    min-height: 450px;
-    display: flex;
-    flex-direction: column;
-    gap: 40px;
-    align-items: stretch;
-    border-radius: 12px;
-    box-shadow: rgb(0 0 0 / 14%) 0 0 6px 0;
-    padding: 50px 30px 30px;
+  box-sizing: border-box;
+  min-height: 450px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  align-items: stretch;
+  border-radius: 12px;
+  box-shadow: rgb(0 0 0 / 14%) 0 0 6px 0;
+  padding: 50px 30px 30px;
 }
 
 .form-group {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .from-group__inputs {
-    gap: 16px;
+  gap: 16px;
 }
 
 .form-group__buttons {
-    gap: 14px;
-    margin-top: auto;
+  gap: 14px;
+  margin-top: auto;
 }

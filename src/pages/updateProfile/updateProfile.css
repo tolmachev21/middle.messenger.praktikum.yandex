@@ -1,30 +1,30 @@
 .form-profile {
-    padding: 0;
-    gap: 60px;
-    justify-content: space-between;
-    border: 0;
-    box-shadow: none;
+  padding: 0;
+  gap: 60px;
+  justify-content: space-between;
+  border: 0;
+  box-shadow: none;
 }
 
 .profile-from__field-group {
-    min-height: 100px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+  min-height: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .profile__nav {
-    background-color: #FBFBFB;
-    border-right: #EAEAEA 1px solid;
-    position: absolute;
-    top: 0;
-    left: 0;
-    display: flex;
-    align-items: center;
-    height: 100%;
+  background-color: #fbfbfb;
+  border-right: #eaeaea 1px solid;
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  height: 100%;
 }
 
 .profile__back {
-    padding: 0 18px;
+  padding: 0 18px;
 }
