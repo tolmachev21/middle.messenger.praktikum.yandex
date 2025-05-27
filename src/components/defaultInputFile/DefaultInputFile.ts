@@ -33,7 +33,6 @@ export default class DefaultInputFile extends Block {
             hiddenErrorClassName: hasError ? '' : 'display_none',
           });
 
-
           const inputFiles = target.files;
 
           if (!inputFiles || inputFiles.length === 0) return;
@@ -52,7 +51,6 @@ export default class DefaultInputFile extends Block {
             value,
             hiddenErrorClassName: hasError ? '' : 'display_none',
           });
-
 
           const inputFiles = target.files;
 

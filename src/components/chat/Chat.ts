@@ -1,6 +1,6 @@
 import Block from '../../core/Block';
 import { default as rawChat } from './chat.hbs?raw';
-import { Text } from '../../components';
+import { Text } from '..';
 
 export interface ChatProps {
     id: number;

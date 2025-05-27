@@ -2,7 +2,7 @@ import Block from '../../core/Block';
 import { default as rawChatFeed } from './chatFeed.hbs?raw';
 import {
   Button, Message, MessageInput, Popup, StackedInput,
-} from '../../components';
+} from '..';
 import { HTTPTransport } from '../../core/HttpTransport';
 
 interface IChatFeed {

@@ -1,7 +1,7 @@
 import Block from '../../core/Block';
 import { default as rawPopup } from './popup.hbs?raw';
-import { Button, Text } from '../../components';
-import type { ButtonProps } from '../../components';
+import { Button, Text } from '..';
+import type { ButtonProps } from '..';
 
 interface PopupProps {
     formState: Record<string, string | File>
