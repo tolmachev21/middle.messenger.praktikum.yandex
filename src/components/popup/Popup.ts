@@ -31,8 +31,8 @@ export default class Popup extends Block {
         name: props.popupFormButton.name,
         className: 'default',
         onClick: (e: Event) => {
-          if (Object.values(this.props.errorState).some((fieldErorrState) => fieldErorrState !== '')) return;
-          props.popupFormButton.onClick(e, this.props.formState);
+          if (Object.values(this.props.errorState as Record<string, string>).some((fieldErorrState: string) => fieldErorrState !== '')) return;
+          props.popupFormButton.onClick(e, this.props.formState as Record<string, string>);
           this.setProps({
             attributes: {
               close: true,

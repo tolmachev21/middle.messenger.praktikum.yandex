@@ -2,12 +2,8 @@ import Block from '../../core/Block';
 import { default as rawChats } from './chats.hbs?raw';
 import { Text, ChatsNavigate } from '../../components';
 
-interface ChatsProps {
-    chatProps: Record<string, string>;
-}
-
 export default class Chats extends Block {
-  constructor(props: ChatsProps) {
+  constructor(props = {}) {
     super('div', {
       ...props,
       className: 'chats-layout',

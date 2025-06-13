@@ -2,17 +2,18 @@ import Handlebars from 'handlebars';
 import { nanoid } from 'nanoid';
 import EventBus from './EventBus.ts';
 
-type Props = Record<string, any>
+type Props = Record<string, unknown>
 type Children = Record<string, Block | Block[]>
+type PropsWithChildren = Props | Children
 type Events = Record<string, (e: Event) => void>
 
 interface PropsWithEvents extends Props {
     events?: Events
 }
 
-export type BlockConstructor<T extends Block = Block> = new (...args: any[]) => T;
+export type BlockConstructor<T extends Block = Block> = new (...args: Props[]) => T;
 
-export default class Block {
+export default abstract class Block<T extends PropsWithChildren = PropsWithChildren> {
   static EVENTS = {
     INIT: 'init',
     FLOW_CDM: 'flow:component-did-mount',
@@ -29,13 +30,13 @@ export default class Block {
   private _element: HTMLElement | null = null;
 
   private readonly _meta: {
-        tagName: string,
-        props: PropsWithEvents
-    };
+    tagName: string,
+    props: PropsWithEvents
+  };
 
   private _id: string = nanoid(6);
 
-  constructor(tagName: string = 'div', propsWithChildren: Props = {}) {
+  constructor(tagName: string = 'div', propsWithChildren: T = {} as T) {
     const _eventBus = new EventBus();
     this._eventBus = () => _eventBus;
 
@@ -70,13 +71,13 @@ export default class Block {
     this._element = this._createDocumentElement(tagName) as HTMLElement;
 
     if (props?.className) {
-      const classes = props.className.split(' ');
-            this._element!.classList.add(...classes);
+      const classes = typeof props.className === 'string' ? props.className.split(' ') : [];
+      this._element!.classList.add(...classes);
     }
 
     if (props.attributes) {
       Object.entries(props.attributes).forEach(([attrName, attrValue]) => {
-                this._element!.setAttribute(attrName as string, attrValue as string);
+        this._element!.setAttribute(attrName as string, attrValue as string);
       });
     }
   }
@@ -111,12 +112,11 @@ export default class Block {
     if (newProps?.attributes) {
       Object.entries(newProps.attributes).forEach(([attrName, attrValue]) => {
         if (attrName === 'open') {
-                    this._element!.removeAttribute('close');
+          this._element!.removeAttribute('close');
         } else if (attrName === 'close') {
-                    this._element!.removeAttribute('open');
+          this._element!.removeAttribute('open');
         }
-
-                this._element!.setAttribute(attrName as string, attrValue as string);
+        this._element!.setAttribute(attrName as string, attrValue as string);
       });
     }
 
@@ -129,22 +129,22 @@ export default class Block {
     return true;
   }
 
-  _getPropsAndChildren(propsWithChildren: Props): {
-        props: PropsWithEvents,
-        children: Children
+  _getPropsAndChildren(propsWithChildren: Partial<T>): {
+      props: PropsWithEvents,
+      children: Children
     } {
     const children: Children = {};
     const props: PropsWithEvents = {};
 
     Object.entries(propsWithChildren).forEach(([key, value]: [string, Block | Block[] | unknown | unknown[]]) => {
       if (Array.isArray(value)) {
-        children[key] = [] as Block[];
-        props[key] = [] as unknown[];
+        children[key] = [];
+        props[key] = [];
         value.forEach((obj: Block | unknown) => {
           if (obj instanceof Block) {
             (children[key] as Block[]).push(obj);
           } else {
-            props[key].push(obj);
+            (props[key] as unknown[]).push(obj);
           }
         });
 
@@ -161,7 +161,7 @@ export default class Block {
     return { props, children };
   }
 
-  setProps(newProps: Partial<PropsWithEvents>): void {
+  setProps(newProps: Partial<T>): void {
     if (!newProps) {
       return;
     }
@@ -237,17 +237,17 @@ export default class Block {
     return this.element;
   }
 
-  _makePropsProxy(props: Record<string, unknown>) {
+  _makePropsProxy(props: Props) {
     const eventBus = this._eventBus();
     const emitBind = eventBus.emit.bind(eventBus);
 
     return new Proxy(props, {
-      get(target: Record<string, unknown>, property: string) {
+      get(target: Props, property: string) {
         const value = target[property];
         return typeof value === 'function' ? value.bind(target) : value;
       },
 
-      set(target: Record<string, unknown>, property: string, value: unknown) {
+      set(target: Props, property: string, value: unknown) {
         const oldTarget = { ...target };
         target[property] = value;
         emitBind(Block.EVENTS.FLOW_CDU, oldTarget, target);
@@ -267,7 +267,7 @@ export default class Block {
     return new Proxy(children, {
       get(target: Children, property: string) {
         const value = target[property];
-        return typeof value === 'function' ? (value as Function).bind(target) : value;
+        return typeof value === 'function' ? (value as unknown as Function).bind(target) : value;
       },
 
       set(target: Children, property: string, value: Block | Block[]) {

@@ -11,7 +11,7 @@ import { router } from '../../main';
 const query = new HTTPTransport('auth');
 
 export default class SignIn extends Block {
-  constructor(props: any) {
+  constructor(props = {}) {
     super('main', {
       ...props,
       formState: {
@@ -34,12 +34,11 @@ export default class SignIn extends Block {
         type: 'submit',
         onClick: (e: Event) => {
           e.preventDefault();
-          const state = this.props;
-          if (Object.values(state.errorState).some((value) => value !== '')) {
+          if (Object.values(this.props.errorState as Record<string, string>).some((value: string) => value !== '')) {
             console.log('Все поля должны быть заполнены и не содержать ошибок');
           } else {
             const result = query.post('/signin', {
-              data: JSON.stringify(state.formState),
+              data: JSON.stringify(this.props.formState),
               headers: {
                 accept: 'application/json',
                 'Content-Type': 'application/json',
@@ -77,11 +76,11 @@ export default class SignIn extends Block {
 
           this.setProps({
             formState: {
-              ...this.props.formState,
+              ...(typeof this.props.formState === 'object' ? this.props.formState : {}),
               login: valueInputState,
             },
             errorState: {
-              ...this.props.errorState,
+              ...(typeof this.props.errorState === 'object' ? this.props.errorState : {}),
               login: errorInputState,
             },
           });
@@ -106,11 +105,11 @@ export default class SignIn extends Block {
 
           this.setProps({
             formState: {
-              ...this.props.formState,
+              ...(typeof this.props.formState === 'object' ? this.props.formState : {}),
               password: valueInputState,
             },
             errorState: {
-              ...this.props.errorState,
+              ...(typeof this.props.errorState === 'object' ? this.props.errorState : {}),
               password: errorInputState,
             },
           });

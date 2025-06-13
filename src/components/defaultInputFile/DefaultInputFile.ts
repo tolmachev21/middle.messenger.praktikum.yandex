@@ -37,7 +37,7 @@ export default class DefaultInputFile extends Block {
 
           if (!inputFiles || inputFiles.length === 0) return;
 
-          props.onChange(inputFiles[0], this.props.error);
+          props.onChange(inputFiles[0], this.props.error as string);
         },
         cancel: (e: Event) => {
           const target = e?.target instanceof HTMLInputElement ? e.target : null;
@@ -56,7 +56,7 @@ export default class DefaultInputFile extends Block {
 
           if (!inputFiles || inputFiles.length === 0) return;
 
-          props.onChange(inputFiles[0], this.props.error);
+          props.onChange(inputFiles[0], this.props.error as string);
         },
       },
     });

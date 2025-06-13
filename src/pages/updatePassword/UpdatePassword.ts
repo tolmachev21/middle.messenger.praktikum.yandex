@@ -8,7 +8,7 @@ import { router } from '../../main';
 const updateUserPasswordQuery = new HTTPTransport('user');
 
 export default class UpdatePassword extends Block {
-  constructor(props: any) {
+  constructor(props = {}) {
     super('div', {
       ...props,
       formState: {
@@ -26,7 +26,7 @@ export default class UpdatePassword extends Block {
         type: 'submit',
         onClick: (e: Event) => {
           e.preventDefault();
-          if (Object.values(this.props.errorState).some((value: unknown) => value !== '')) return;
+          if (Object.values(this.props.errorState as Record<string, string>).some((value: unknown) => value !== '')) return;
           updateUserPasswordQuery.put('/password', {
             headers: {
               accept: 'application/json',
@@ -61,11 +61,11 @@ export default class UpdatePassword extends Block {
 
             this.setProps({
               formState: {
-                ...this.props.formState,
+                ...(typeof this.props.formState === 'object' ? this.props.formState : {}),
                 oldPassword: valueInputState,
               },
               errorState: {
-                ...this.props.errorState,
+                ...(typeof this.props.errorState === 'object' ? this.props.errorState : {}),
                 oldPassword: errorInputState,
               },
             });
@@ -91,11 +91,11 @@ export default class UpdatePassword extends Block {
 
             this.setProps({
               formState: {
-                ...this.props.formState,
+                ...(typeof this.props.formState === 'object' ? this.props.formState : {}),
                 newPassword: valueInputState,
               },
               errorState: {
-                ...this.props.errorState,
+                ...(typeof this.props.errorState === 'object' ? this.props.errorState : {}),
                 newPassword: errorInputState,
               },
             });
@@ -109,7 +109,7 @@ export default class UpdatePassword extends Block {
           value: '',
           errorTemplate: 'Пароли не совпадают',
           hasValidInput: (validateValue) => {
-            if (validateValue !== this.props.formState.newPassword) {
+            if (validateValue !== (this.props.formState as Record<string, string>).newPassword) {
               return false;
             }
 
@@ -120,7 +120,7 @@ export default class UpdatePassword extends Block {
 
             this.setProps({
               errorState: {
-                ...this.props.errorState,
+                ...(typeof this.props.errorState === 'object' ? this.props.errorState : {}),
                 newPasswordAgain: errorInputState,
               },
             });

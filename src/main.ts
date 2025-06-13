@@ -19,12 +19,18 @@ export const router = new Router('#app');
 
 document.addEventListener('DOMContentLoaded', async () => {
   query.get('/user').then((user) => {
-    	typeof user === 'string' && localStorage.setItem('user', user);
-    	window.history.pushState({}, '', '/messenger');
+    const userObj = JSON.parse(user as string);
+    if (typeof userObj === 'object' && userObj !== null && 'id' in userObj) {
+      localStorage.setItem('user', user as string);
+      window.history.pushState({}, '', '/messenger');
+    } else {
+      localStorage.removeItem('user');
+      window.history.pushState({}, '', '/');
+    }
   }).catch((err) => {
-    	console.log('err', err);
-	    localStorage.removeItem('user');
-	    window.history.pushState({}, '', '/');
+    console.log('err', err);
+    localStorage.removeItem('user');
+    window.history.pushState({}, '', '/');
   });
 
   try {

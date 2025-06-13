@@ -8,7 +8,7 @@ import { HTTPTransport } from '../../core/HttpTransport';
 interface IChatFeed {
     id: number,
     header: Record<string, string>,
-    messages: Array<any>,
+    messages: Array<Block>,
 }
 
 const query = new HTTPTransport('chats');
@@ -215,10 +215,10 @@ export default class ChatFeed extends Block {
         onClick: (e: Event) => {
           e.preventDefault();
           const state = this.props;
-          if (Object.values(state.errorState).some((value) => value !== '')) {
+          if (Object.values(state.errorState as Record<string, string>).some((value: string) => value !== '')) {
             console.log('Все поля должны быть заполнены и не содержать ошибок');
           } else {
-            this._pushMessage(state.formState?.message);
+            this._pushMessage((state.formState as Record<string, string>).message);
           }
         },
       }),
@@ -237,7 +237,7 @@ export default class ChatFeed extends Block {
           }
           this.setProps({
             formState: {
-              ...this.props.formState,
+              ...(typeof this.props.formState === 'object' ? this.props.formState : {}),
               message: value,
             },
           });
@@ -330,10 +330,16 @@ export default class ChatFeed extends Block {
   }
 
   private _pushMessage(text: string) {
-    this._socket && this._socket.send(JSON.stringify({
-      content: text,
-      type: 'message',
-    }));
+    if (this._socket && text) {
+      this._socket.send(JSON.stringify({
+        content: text,
+        type: 'message',
+      }));
+
+      if (this.children.MessageInput instanceof MessageInput) {
+        this.children.MessageInput.clearValue();
+      }
+    }
   }
 
   private _pullOldMessages() {

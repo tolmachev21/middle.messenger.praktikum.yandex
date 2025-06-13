@@ -7,7 +7,7 @@ enum METHOD {
 
 type Options = {
   method: METHOD;
-  data?: any;
+  data?: string | Record<string, string | number> | FormData;
   headers?: Record<string, string>;
 };
 
@@ -74,7 +74,7 @@ export class HTTPTransport {
 
       const xhr = new XMLHttpRequest();
       const isGet = method === METHOD.GET;
-      const query = isGet ? `${url}${queryStringify(data)}` : url;
+      const query = isGet ? `${url}${queryStringify(data as Record<string, string | number>)}` : url;
 
       xhr.open(
         method,
@@ -97,18 +97,21 @@ export class HTTPTransport {
       if (isGet || !data) {
         xhr.send();
       } else {
-        xhr.send(data);
+        xhr.send(data as Document | XMLHttpRequestBodyInit);
       }
     });
   }
 }
 
-function queryStringify(data: Record<string, unknown> = {}) {
+function queryStringify(data: Record<string, string | number> = {}) {
   if (typeof data !== 'object') {
     throw new Error('Data must be object');
   }
 
   const keys = Object.keys(data);
   if (keys.length === 0) return '';
-  return keys.reduce((result, key, index) => `${result}${key}=${data[key]}${index < keys.length - 1 ? '&' : ''}`, '?');
+  return keys.reduce(
+    (result, key, index) => `${result}${encodeURIComponent(key)}=${encodeURIComponent(String(data[key]))}${index < keys.length - 1 ? '&' : ''}`,
+    '?',
+  );
 }

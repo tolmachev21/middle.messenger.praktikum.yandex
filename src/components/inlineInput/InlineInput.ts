@@ -35,7 +35,7 @@ export default class InlineInput extends Block {
             hiddenErrorClassName: hasError ? '' : 'display_none',
           });
 
-          props.onChange(value, this.props.error);
+          props.onChange(value, this.props.error as string);
         },
       },
     });

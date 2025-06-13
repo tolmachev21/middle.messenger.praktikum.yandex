@@ -1,7 +1,7 @@
 import Block from '../../core/Block';
 import { default as rawMessage } from './message.hbs?raw';
 
-interface MessageProps {
+export interface MessageProps {
     status: boolean;
     content: string;
     time: string;

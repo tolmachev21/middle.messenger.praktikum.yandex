@@ -9,30 +9,10 @@ import { HTTPTransport } from '../../core/HttpTransport';
 
 const query = new HTTPTransport('auth');
 
-interface SignUpState {
-    formState: {
-        email: string;
-        login: string;
-        first_name: string;
-        second_name: string;
-        phone: string;
-        password: string;
-        password_repeat: string;
-    };
-    errorState: {
-        email: string;
-        login: string;
-        first_name: string;
-        second_name: string;
-        phone: string;
-        password: string;
-        password_repeat: string;
-    };
-}
-
 export default class SignUp extends Block {
-  constructor() {
+  constructor(props = {}) {
     super('main', {
+      ...props,
       formState: {
         email: '',
         login: '',
@@ -63,12 +43,11 @@ export default class SignUp extends Block {
         type: 'submit',
         onClick: (e: Event) => {
           e.preventDefault();
-          const state = this.props as SignUpState;
-          if (Object.values(state.errorState).some((value) => value !== '')) {
+          if (Object.values(this.props.errorState as Record<string, string>).some((value: string) => value !== '')) {
             console.log('Все поля должны быть заполнены и не содержать ошибок');
           } else {
             query.post('/signup', {
-              data: JSON.stringify(state.formState),
+              data: JSON.stringify(this.props.formState),
               headers: {
                 'Content-Type': 'application/json',
               },
@@ -107,11 +86,11 @@ export default class SignUp extends Block {
 
           this.setProps({
             formState: {
-              ...this.props.formState,
+              ...(typeof this.props.formState === 'object' ? this.props.formState : {}),
               email: valueInputState,
             },
             errorState: {
-              ...this.props.errorState,
+              ...(typeof this.props.errorState === 'object' ? this.props.errorState : {}),
               email: errorInputState,
             },
           });
@@ -136,11 +115,11 @@ export default class SignUp extends Block {
 
           this.setProps({
             formState: {
-              ...this.props.formState,
+              ...(typeof this.props.formState === 'object' ? this.props.formState : {}),
               login: valueInputState,
             },
             errorState: {
-              ...this.props.errorState,
+              ...(typeof this.props.errorState === 'object' ? this.props.errorState : {}),
               login: errorInputState,
             },
           });
@@ -165,11 +144,11 @@ export default class SignUp extends Block {
 
           this.setProps({
             formState: {
-              ...this.props.formState,
+              ...(typeof this.props.formState === 'object' ? this.props.formState : {}),
               first_name: valueInputState,
             },
             errorState: {
-              ...this.props.errorState,
+              ...(typeof this.props.errorState === 'object' ? this.props.errorState : {}),
               first_name: errorInputState,
             },
           });
@@ -194,11 +173,11 @@ export default class SignUp extends Block {
 
           this.setProps({
             formState: {
-              ...this.props.formState,
+              ...(typeof this.props.formState === 'object' ? this.props.formState : {}),
               second_name: valueInputState,
             },
             errorState: {
-              ...this.props.errorState,
+              ...(typeof this.props.errorState === 'object' ? this.props.errorState : {}),
               second_name: errorInputState,
             },
           });
@@ -223,11 +202,11 @@ export default class SignUp extends Block {
 
           this.setProps({
             formState: {
-              ...this.props.formState,
+              ...(typeof this.props.formState === 'object' ? this.props.formState : {}),
               phone: valueInputState,
             },
             errorState: {
-              ...this.props.errorState,
+              ...(typeof this.props.errorState === 'object' ? this.props.errorState : {}),
               phone: errorInputState,
             },
           });
@@ -252,11 +231,11 @@ export default class SignUp extends Block {
 
           this.setProps({
             formState: {
-              ...this.props.formState,
+              ...(typeof this.props.formState === 'object' ? this.props.formState : {}),
               password: valueInputState,
             },
             errorState: {
-              ...this.props.errorState,
+              ...(typeof this.props.errorState === 'object' ? this.props.errorState : {}),
               password: errorInputState,
             },
           });
@@ -274,7 +253,7 @@ export default class SignUp extends Block {
             return false;
           }
 
-          if (validateValue !== this.props.formState.password) {
+          if (validateValue !== (this.props.formState as Record<string, string>).password) {
             return false;
           }
 
@@ -285,11 +264,11 @@ export default class SignUp extends Block {
 
           this.setProps({
             formState: {
-              ...this.props.formState,
+              ...(typeof this.props.formState === 'object' ? this.props.formState : {}),
               password_repeat: valueInputState,
             },
             errorState: {
-              ...this.props.errorState,
+              ...(typeof this.props.errorState === 'object' ? this.props.errorState : {}),
               password_repeat: errorInputState,
             },
           });

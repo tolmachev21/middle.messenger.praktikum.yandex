@@ -13,7 +13,7 @@ import type { ChatProps } from '../chat';
 const query = new HTTPTransport('chats');
 
 export default class ChatsNavigate extends Block {
-  constructor(props: any) {
+  constructor(props = {}) {
     super('nav', {
       ...props,
       className: 'chats-navigate',

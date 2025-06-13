@@ -5,7 +5,7 @@ import { default as rawUpdateProfile } from './updateProfile.hbs?raw';
 import { HTTPTransport } from '../../core/HttpTransport';
 import { router } from '../../main';
 
-interface IUpdateProfile {
+export interface IUpdateProfile {
     email: string,
     login: string,
     first_name: string,
@@ -40,9 +40,9 @@ export default class UpdateProfile extends Block {
         text: 'Сохранить',
         className: 'default',
         type: 'submit',
-        onClick: (e: any) => {
+        onClick: (e: Event, valueState: Record<string, string>) => {
           e.preventDefault();
-          if (Object.values(this.props.errorState).some((value: unknown) => value !== '')) return;
+          if (Object.values(valueState).some((value: unknown) => value !== '')) return;
           updateUserProfileQuery.put('/profile', {
             headers: {
               accept: 'application/json',
@@ -77,11 +77,11 @@ export default class UpdateProfile extends Block {
 
             this.setProps({
               formState: {
-                ...this.props.formState,
+                ...(typeof this.props.formState === 'object' ? this.props.formState : {}),
                 email: valueInputState,
               },
               errorState: {
-                ...this.props.errorState,
+                ...(typeof this.props.errorState === 'object' ? this.props.errorState : {}),
                 email: errorInputState,
               },
             });
@@ -107,11 +107,11 @@ export default class UpdateProfile extends Block {
 
             this.setProps({
               formState: {
-                ...this.props.formState,
+                ...(typeof this.props.formState === 'object' ? this.props.formState : {}),
                 login: valueInputState,
               },
               errorState: {
-                ...this.props.errorState,
+                ...(typeof this.props.errorState === 'object' ? this.props.errorState : {}),
                 login: errorInputState,
               },
             });
@@ -137,11 +137,11 @@ export default class UpdateProfile extends Block {
 
             this.setProps({
               formState: {
-                ...this.props.formState,
+                ...(typeof this.props.formState === 'object' ? this.props.formState : {}),
                 first_name: valueInputState,
               },
               errorState: {
-                ...this.props.errorState,
+                ...(typeof this.props.errorState === 'object' ? this.props.errorState : {}),
                 first_name: errorInputState,
               },
             });
@@ -167,11 +167,11 @@ export default class UpdateProfile extends Block {
 
             this.setProps({
               formState: {
-                ...this.props.formState,
+                ...(typeof this.props.formState === 'object' ? this.props.formState : {}),
                 second_name: valueInputState,
               },
               errorState: {
-                ...this.props.errorState,
+                ...(typeof this.props.errorState === 'object' ? this.props.errorState : {}),
                 second_name: errorInputState,
               },
             });
@@ -197,11 +197,11 @@ export default class UpdateProfile extends Block {
 
             this.setProps({
               formState: {
-                ...this.props.formState,
+                ...(typeof this.props.formState === 'object' ? this.props.formState : {}),
                 display_name: valueInputState,
               },
               errorState: {
-                ...this.props.errorState,
+                ...(typeof this.props.errorState === 'object' ? this.props.errorState : {}),
                 display_name: errorInputState,
               },
             });
@@ -227,11 +227,11 @@ export default class UpdateProfile extends Block {
 
             this.setProps({
               formState: {
-                ...this.props.formState,
+                ...(typeof this.props.formState === 'object' ? this.props.formState : {}),
                 phone: valueInputState,
               },
               errorState: {
-                ...this.props.errorState,
+                ...(typeof this.props.errorState === 'object' ? this.props.errorState : {}),
                 phone: errorInputState,
               },
             });

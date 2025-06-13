@@ -4,6 +4,7 @@ import {
 } from '../../components';
 import { default as rawProfile } from './profile.hbs?raw';
 import { UpdateProfilePage, UpdatePasswordPage } from '../index.ts';
+import { IUpdateProfile } from '../updateProfile/UpdateProfile.ts';
 
 import renderDOM from '../../core/renderDOM';
 import { router } from '../../main';
@@ -22,7 +23,7 @@ const listProfileData = {
 };
 
 export default class Profile extends Block {
-  constructor(props: any) {
+  constructor(props = {}) {
     super('div', {
       ...props,
       linkList: [
@@ -33,7 +34,7 @@ export default class Profile extends Block {
           type: 'default',
           onClick: () => {
             if (this.props.userProfileState) {
-              renderDOM(new UpdateProfilePage(this.props.userProfileState));
+              renderDOM(new UpdateProfilePage(this.props.userProfileState as IUpdateProfile));
             }
           },
         }),
