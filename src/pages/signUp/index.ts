@@ -1,2 +1,3 @@
-import './signUp.css'
-export { default as SignUp } from './SignUp.ts'
+import './signUp.css';
+
+export { default as SignUp } from './SignUp.ts';

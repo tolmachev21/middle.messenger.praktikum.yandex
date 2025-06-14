@@ -1,33 +1,47 @@
-import Block from '../../core/Block'
-import { default as rawInlineInput } from './inlineInput.hbs?raw'
+import Block from '../../core/Block';
+import { default as rawInlineInput } from './inlineInput.hbs?raw';
 
 interface InlineInputProps {
     name: string;
     type: string;
     value: string;
-    title?: string;
-    error?: string;
-    hiddenErrorClassName?: string;
-    required?: boolean;
-    onChange?: (e: Event) => void;
+    title: string;
+    errorTemplate: string;
+    required: boolean;
+    hasValidInput: (validateValue: string) => boolean;
+    onChange: (valueInputState: string, errorInputState: string) => void;
 }
 
 export default class InlineInput extends Block {
-    constructor(props: InlineInputProps) {
-        super('li', {
-            ...props,
-            attributes: {
-                for: props.name,
-                required: props.required,
-            },
-            className: 'profile__user-field',
-            events: {
-                focusout: props.onChange,
-            },
-        })
-    }
+  constructor(props: InlineInputProps) {
+    super('li', {
+      ...props,
+      attributes: {
+        for: props.name,
+        required: props.required,
+      },
+      className: 'profile__user-field',
+      events: {
+        focusout: (e: Event) => {
+          const target = e?.target instanceof HTMLInputElement ? e.target : null;
+          if (!target || !target.value) return;
 
-    public render():string {
-        return rawInlineInput
-    }
+          const { value } = target;
+          const hasError = !props.hasValidInput(value);
+
+          this.setProps({
+            error: hasError ? this.props.errorTemplate : '',
+            value,
+            hiddenErrorClassName: hasError ? '' : 'display_none',
+          });
+
+          props.onChange(value, this.props.error as string);
+        },
+      },
+    });
+  }
+
+  public render():string {
+    return rawInlineInput;
+  }
 }

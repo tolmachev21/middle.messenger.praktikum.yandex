@@ -1,2 +1,3 @@
-import './chatId.css'
-export { default as ChatId } from './ChatId.ts'
+import './chatId.css';
+
+export { default as ChatId } from './ChatId.ts';
