@@ -68,6 +68,8 @@ export default class ChatFeed extends Block {
             const AddUserPopup = this.children.AddUserPopup instanceof Popup ? this.children.AddUserPopup : null;
             if (!AddUserPopup) return;
 
+            console.log('formState', formState);
+
             query.put('/users', {
               headers: {
                 accept: 'application/json',
@@ -296,19 +298,16 @@ export default class ChatFeed extends Block {
               content: message.content,
               time: message.time.slice(11, 16),
               status: loggedUser.id === message.user_id,
-            })),
+            })).reverse(),
           ],
         });
       } else {
         this.setProps({
-          messages: [
-            ...oldMessages,
-            new Message({
-              content: messageResult.content,
-              time: messageResult.time.slice(11, 16),
-              status: loggedUser.id === messageResult.user_id,
-            }),
-          ],
+          messages: oldMessages.push(new Message({
+            content: messageResult.content,
+            time: messageResult.time.slice(11, 16),
+            status: loggedUser.id === messageResult.user_id,
+          })),
         });
       }
     });

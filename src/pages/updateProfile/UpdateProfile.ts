@@ -40,9 +40,9 @@ export default class UpdateProfile extends Block {
         text: 'Сохранить',
         className: 'default',
         type: 'submit',
-        onClick: (e: Event, valueState: Record<string, string>) => {
+        onClick: (e: Event) => {
           e.preventDefault();
-          if (Object.values(valueState).some((value: unknown) => value !== '')) return;
+          if (Object.values(this.props.errorState as Record<string, string>).some((value: string) => value !== '')) return;
           updateUserProfileQuery.put('/profile', {
             headers: {
               accept: 'application/json',

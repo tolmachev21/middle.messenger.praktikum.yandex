@@ -22,8 +22,7 @@ export default class MessageInput extends Block<MessageInputProps> {
         value: props.value || '',
       },
       events: {
-        blur: props.onChange,
-        input: (e: Event) => {
+        blur: (e: Event) => {
           const target = e.target as HTMLInputElement;
           this.setProps({ value: target.value });
           props.onChange(e);
