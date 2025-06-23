@@ -103,8 +103,8 @@ export default class ChatsNavigate extends Block {
     this._loadChatsData();
   }
 
-  private _loadChatsData():void {
-    query.get('', {
+  private async _loadChatsData(): Promise<void> {
+    const result = await query.get('', {
       headers: {
         'Content-Type': 'application/json',
       },
@@ -112,22 +112,25 @@ export default class ChatsNavigate extends Block {
         offset: 0,
         limit: 20,
       },
-    }).then((result) => {
-      if (typeof result !== 'string') return;
-      const itog = JSON.parse(result) as Array<ChatProps>;
+    });
+    if (typeof result !== 'string') return;
+    const itog = JSON.parse(result);
+    if (itog?.reason === 'Cookie is not valid') {
+      router.go('/');
+      return;
+    }
 
-      this.setProps({
-        chats: itog.map((chatProps) => new Chat({
-          ...chatProps,
-          onClick: (e) => {
-            e.preventDefault();
-            renderDOM(new ChatIdPage({
-              ...chatProps,
-            }));
-          },
-        })),
-      });
-    }).catch((err) => console.log('err', err));
+    this.setProps({
+      chats: itog.map((chatProps: ChatProps) => new Chat({
+        ...chatProps,
+        onClick: (e) => {
+          e.preventDefault();
+          renderDOM(new ChatIdPage({
+            ...chatProps,
+          }));
+        },
+      })),
+    });
   }
 
   public render(): string {

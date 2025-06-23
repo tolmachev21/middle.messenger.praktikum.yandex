@@ -121,42 +121,44 @@ export default class Profile extends Block {
     this._loadUserData();
   }
 
-  private _loadUserData(): void {
-    query.get('/user', {
+  private async _loadUserData(): Promise<void> {
+    const result = await query.get('/user', {
       headers: { accept: 'application/json' },
-    }).then((result) => {
-      if (typeof result !== 'string') return;
-      const itog = JSON.parse(result);
+    });
 
-      const arrayOfKeys = Object.keys(listProfileData) as Array<keyof typeof listProfileData>;
+    if (typeof result !== 'string') return;
+    const itog = JSON.parse(result);
+    if (itog?.reason === 'Cookie is not valid') {
+      router.go('/');
+      return;
+    }
 
-      const preparedData = arrayOfKeys.map((key) => new InlineText({
-        label: listProfileData[key],
-        value: itog[key],
-      }));
+    const arrayOfKeys = Object.keys(listProfileData) as Array<keyof typeof listProfileData>;
 
-      this.setProps({
-        userProfileState: itog,
-        profileFilds: preparedData,
-        UserNameTitle: new Title({
-          text: itog.first_name,
-          size: 'small',
-        }),
-        ProfileAvatar: new ProfileAvatar({
-          imgSrc: itog.avatar ? `https://ya-praktikum.tech/api/v2/resources${itog.avatar}` : '',
-          onClick: (e: Event) => {
-            e.preventDefault();
-            if (Array.isArray(this.children.ChangeAvaterPopup)) return;
-            this.children.ChangeAvaterPopup.setProps({
-              attributes: {
-                open: 'true',
-              },
-            });
-          },
-        }),
-      });
-    }).catch((err) => {
-      console.log('err', err);
+    const preparedData = arrayOfKeys.map((key) => new InlineText({
+      label: listProfileData[key],
+      value: itog[key],
+    }));
+
+    this.setProps({
+      userProfileState: itog,
+      profileFilds: preparedData,
+      UserNameTitle: new Title({
+        text: itog.first_name,
+        size: 'small',
+      }),
+      ProfileAvatar: new ProfileAvatar({
+        imgSrc: itog.avatar ? `https://ya-praktikum.tech/api/v2/resources${itog.avatar}` : '',
+        onClick: (e: Event) => {
+          e.preventDefault();
+          if (Array.isArray(this.children.ChangeAvaterPopup)) return;
+          this.children.ChangeAvaterPopup.setProps({
+            attributes: {
+              open: 'true',
+            },
+          });
+        },
+      }),
     });
   }
 

@@ -39,7 +39,6 @@ export default class Router {
 
     if (!route) {
       throw new Error(`Роут по ${pathname} не зарегистирован`);
-      return;
     }
 
     if (this._currentRoute) {

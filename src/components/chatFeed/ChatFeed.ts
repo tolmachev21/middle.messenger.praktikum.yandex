@@ -13,6 +13,7 @@ interface IChatFeed {
 
 const query = new HTTPTransport('chats');
 const query2 = new HTTPTransport('user');
+const query3 = new HTTPTransport('auth');
 
 export default class ChatFeed extends Block {
   private _socket: WebSocket | null = null;
@@ -67,8 +68,6 @@ export default class ChatFeed extends Block {
             e.preventDefault();
             const AddUserPopup = this.children.AddUserPopup instanceof Popup ? this.children.AddUserPopup : null;
             if (!AddUserPopup) return;
-
-            console.log('formState', formState);
 
             query.put('/users', {
               headers: {
@@ -252,16 +251,21 @@ export default class ChatFeed extends Block {
 
   private async _getMessages(chatId: number): Promise<void> {
     const token = await this._getTokenForWS(chatId);
-
     if (!token) return;
 
-    const loggedUser = JSON.parse(localStorage.getItem('user') ?? '');
+    const user = await query3.get('/user').then((result) => {
+      try {
+        return JSON.parse(result as string);
+      } catch (err) {
+        console.error(err);
+      }
+    });
 
-    if (!loggedUser) {
+    if (!user?.id) {
       return;
     }
 
-    this._socket = new WebSocket(`wss://ya-praktikum.tech/ws/chats/${loggedUser.id}/${chatId}/${token}`);
+    this._socket = new WebSocket(`wss://ya-praktikum.tech/ws/chats/${user?.id}/${chatId}/${token}`);
 
     this._socket.addEventListener('open', () => {
       console.log('Соединение установлено');
@@ -275,16 +279,13 @@ export default class ChatFeed extends Block {
       } else {
         console.log('Обрыв соединения');
       }
-
       console.log(`Код: ${event.code} | Причина: ${event.reason}`);
     });
 
     this._socket.addEventListener('message', (event) => {
       const messageResult = event.data && JSON.parse(event.data);
 
-      const loggedUser = JSON.parse(localStorage.getItem('user') ?? '');
-
-      if (!loggedUser) {
+      if (!user?.id) {
         return;
       }
 
@@ -297,7 +298,7 @@ export default class ChatFeed extends Block {
             ...messageResult.map((message) => new Message({
               content: message.content,
               time: message.time.slice(11, 16),
-              status: loggedUser.id === message.user_id,
+              status: user?.id === message.user_id,
             })).reverse(),
           ],
         });
@@ -306,7 +307,7 @@ export default class ChatFeed extends Block {
           messages: oldMessages.push(new Message({
             content: messageResult.content,
             time: messageResult.time.slice(11, 16),
-            status: loggedUser.id === messageResult.user_id,
+            status: user?.id === messageResult.user_id,
           })),
         });
       }

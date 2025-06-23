@@ -18,20 +18,19 @@ const query = new HTTPTransport('auth');
 export const router = new Router('#app');
 
 document.addEventListener('DOMContentLoaded', async () => {
-  if (!localStorage.getItem('user')) {
-    try {
-      const userString = await query.get('/user');
-      const userObj = JSON.parse(userString as string);
-      if (typeof userObj === 'object' && userObj !== null && 'id' in userObj) {
-        localStorage.setItem('user', userString as string);
+  try {
+    const userString = await query.get('/user');
+    const userObj = JSON.parse(userString as string);
+    if (userObj?.reason) {
+      if (window.location.pathname === '/sign-up') {
+        window.history.pushState({}, '', '/sign-up');
       } else {
-        localStorage.removeItem('user');
         window.history.pushState({}, '', '/');
       }
-    } catch (err) {
-      localStorage.removeItem('user');
-      window.history.pushState({}, '', '/');
     }
+    if (userObj?.id && (window.location.pathname === '/' || window.location.pathname === '/sign-up')) window.history.pushState({}, '', '/messenger');
+  } catch (err) {
+    router.go('/');
   }
 
   try {
