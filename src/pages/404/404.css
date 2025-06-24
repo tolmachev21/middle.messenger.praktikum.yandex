@@ -1,15 +1,15 @@
 .page {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
 
 .page__error {
-    gap: 20px;
+  gap: 20px;
 }
 
 .layout__link {
-    margin-top: 50px;
+  margin-top: 50px;
 }

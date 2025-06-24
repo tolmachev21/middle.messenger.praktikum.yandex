@@ -1,0 +1,32 @@
+.profile-avatar {
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #efefef;
+}
+
+.profile__avatar_state_hover:hover::before {
+  content: "Поменять аватар";
+  cursor: pointer;
+  background-color: #000;
+  opacity: 0.5;
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  padding: 51px 33px;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 14px;
+  letter-spacing: 0;
+  text-align: center;
+  z-index: 1;
+}

@@ -1,0 +1,11 @@
+{{#if value }}{{ value }}{{else}}{{ title }}{{/if}}
+<input
+    name="{{ name }}"
+    id="{{ name }}"
+    class="profile-form__input-file"
+    type="file"
+    value="{{ value }}"
+    required
+    accept="image/*"
+>
+<span class="profile-form-input__error {{ hiddenErrorClassName }}">{{ error }}</span>

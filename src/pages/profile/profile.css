@@ -1,83 +1,51 @@
 .profile {
-    margin: auto;
-    max-width: 510px;
+  margin: auto;
+  max-width: 510px;
 }
 
 .profile__header {
-    margin-top: 60px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 21px;
-}
-
-.profile-avatar {
-    width: 130px;
-    height: 130px;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    background: #EFEFEF;
-}
-
-.profile__avatar_state_hover:hover::before {
-    content: "Поменять аватар";
-    cursor: pointer;
-    background-color: #000;
-    opacity: 0.5;
-    width: 130px;
-    height: 130px;
-    border-radius: 50%;
-    padding: 51px 33px;
-    box-sizing: border-box;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: absolute;
-    color: #fff;
-    font-size: 13px;
-    font-weight: 500;
-    line-height: 14px;
-    letter-spacing: 0;
-    text-align: center;
-    z-index: 1;
+  margin-top: 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 21px;
 }
 
 .profile__body {
-    margin-top: 60px;
-    display: flex;
-    flex-direction: column;
-    width: 100%;
+  margin-top: 60px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
 }
 
 .profile__footer {
-    margin-top: 60px;
-    display: flex;
-    flex-direction: column;
+  margin-top: 60px;
+  display: flex;
+  flex-direction: column;
 }
 
 .profile__link {
-    padding: 10px 0;
-    display: flex;
-    justify-content: space-between;
-    border-bottom: #EAEAEA 1px solid;
+  padding: 10px 0;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: #eaeaea 1px solid;
 }
 
 .profile__link:last-child {
-    border-bottom: none;
+  border-bottom: none;
 }
 
 .profile__nav {
-    background-color: #FBFBFB;
-    border-right: #EAEAEA 1px solid;
-    position: absolute;
-    top: 0;
-    left: 0;
-    display: flex;
-    align-items: center;
-    height: 100%;
+  background-color: #fbfbfb;
+  border-right: #eaeaea 1px solid;
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  height: 100%;
 }
 
 .profile__back {
-    padding: 0 18px;
+  padding: 0 18px;
 }

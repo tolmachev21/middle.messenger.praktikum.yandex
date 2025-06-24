@@ -1,48 +1,60 @@
-import Block from '../../core/Block'
-import { default as rawPopup } from './popup.hbs?raw'
-import { Button, Text } from '../../components'
+import Block from '../../core/Block';
+import { default as rawPopup } from './popup.hbs?raw';
+import { Button, Text } from '..';
+import type { ButtonProps } from '..';
 
 interface PopupProps {
-    title: string;
-    text: string;
-    button: {
-        name: string;
-        page: string;
-        type: string;
-        text: string;
-        onClick?: (e: Event) => void;
-    };
-    page: string;
-    attributes: {
-        open: string;
-    };
+    formState: Record<string, string | File>
+    errorState: Record<string, string>
+    popupTitle: string
+    popupFormButton: ButtonProps
+    inputsForm: Block[]
+    attributes?: {
+        open: string
+    }
 }
 
 export default class Popup extends Block {
-    constructor(props: PopupProps) {
-        super('dialog', {
-            ...props,
+  constructor(props: PopupProps) {
+    super('dialog', {
+      ...props,
+      attributes: {
+        [props?.attributes?.open ? 'open' : 'close']: '',
+      },
+      className: 'popup',
+      PopupTitle: new Text({
+        text: props.popupTitle,
+      }),
+      SubmitButton: new Button({
+        text: props.popupFormButton.text,
+        type: props.popupFormButton.type,
+        name: props.popupFormButton.name,
+        className: 'default',
+        onClick: (e: Event) => {
+          if (Object.values(this.props.errorState as Record<string, string>).some((fieldErorrState: string) => fieldErorrState !== '')) return;
+          props.popupFormButton.onClick(e, this.props.formState as Record<string, string>);
+          this.setProps({
             attributes: {
-                [props.attributes.open ? 'open' : 'close']: props.attributes.open,
+              close: true,
             },
-            className: 'popup',
-            TextLoadFile: new Text({
-                text: props.title,
-            }),
-            Button: new Button({
-                text: props.button.text,
-                type: props.button.type,
-                name: props.button.name,
-                page: props.button.page,
-                className: 'default',
-                onClick: (e: Event) => {
-                    console.log(e, 'Поменять аватар')
-                }
-            }),
-        })
-    }
+          });
+        },
+      }),
+      events: {
+        click: (e: Event) => {
+          if (e?.target instanceof HTMLElement && e?.target?.nodeName === 'DIALOG') {
+            this.setProps({
+              attributes: {
+                close: true,
+              },
+            });
+          }
+        },
+      },
+    });
+  }
 
-    public render(): string {
-        return rawPopup
-    }
+  public render(): string {
+    return rawPopup;
+  }
 }
