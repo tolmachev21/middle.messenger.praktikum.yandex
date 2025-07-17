@@ -7,10 +7,10 @@ describe('Router', () => {
   const firstScreenBlockId = 'firstScreen';
   const secondScreenBlockId = 'secondScreen';
 
-  class firstScreen extends Block {
-    constructor(props = {}) {
-      super('div', {
-        ...props,
+class firstScreen extends Block {
+  constructor(props = {}) {
+    super('div', {
+      ...props,
       });
     }
 

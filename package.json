@@ -6,7 +6,7 @@
   "scripts": {
     "test": "mocha",
     "lint:all": "npm-run-all lint stylelint prebuild",
-    "lint": "eslint --fix",
+    "lint": "eslint . --fix",
     "stylelint": "stylelint \"**/*.css\" --fix",
     "prebuild": "tsc --noEmit",
     "dev": "npm run prebuild && vite",
