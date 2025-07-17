@@ -54,19 +54,19 @@ export default abstract class Block<T extends PropsWithChildren = PropsWithChild
     _eventBus.emit(Block.EVENTS.INIT);
   }
 
-  _registerEvents(_eventBus: EventBus<string>) {
+  private _registerEvents(_eventBus: EventBus<string>) {
     _eventBus.on(Block.EVENTS.INIT, this.init.bind(this));
     _eventBus.on(Block.EVENTS.FLOW_CDM, this._componentDidMount.bind(this));
     _eventBus.on(Block.EVENTS.FLOW_CDU, this._componentDidUpdate.bind(this));
     _eventBus.on(Block.EVENTS.FLOW_RENDER, this._render.bind(this));
   }
 
-  init() {
+  public init() {
     this._createResources();
     this._eventBus().emit(Block.EVENTS.FLOW_RENDER);
   }
 
-  _createResources() {
+  private _createResources() {
     const { tagName, props } = this._meta;
     this._element = this._createDocumentElement(tagName) as HTMLElement;
 
@@ -86,24 +86,23 @@ export default abstract class Block<T extends PropsWithChildren = PropsWithChild
     return this._element!;
   }
 
-  _componentDidMount() {
+  private _componentDidMount() {
     this.componentDidMount();
   }
 
-  componentDidMount(oldProps?: PropsWithEvents): void {
+  public componentDidMount(oldProps?: PropsWithEvents): void {
     console.log('oldProps', oldProps);
   }
 
-  dispatchComponentDidMount() {
+  public dispatchComponentDidMount() {
     this._eventBus().emit(Block.EVENTS.FLOW_CDM);
   }
 
-  dispatchComponentDidUpdate() {
-    console.log('this');
+  public dispatchComponentDidUpdate() {
     this._eventBus().emit(Block.EVENTS.FLOW_CDU);
   }
 
-  _componentDidUpdate(oldProps: PropsWithEvents, newProps: PropsWithEvents) {
+  private _componentDidUpdate(oldProps: PropsWithEvents, newProps: PropsWithEvents) {
     const response = this.componentDidUpdate(oldProps, newProps);
     if (!response) {
       return;
@@ -123,13 +122,13 @@ export default abstract class Block<T extends PropsWithChildren = PropsWithChild
     this._render();
   }
 
-  componentDidUpdate(oldProps: PropsWithEvents, newProps: PropsWithEvents): boolean {
+  public componentDidUpdate(oldProps: PropsWithEvents, newProps: PropsWithEvents): boolean {
     console.log('oldProps', oldProps);
     console.log('newProps', newProps);
     return true;
   }
 
-  _getPropsAndChildren(propsWithChildren: Partial<T>): {
+  private _getPropsAndChildren(propsWithChildren: Partial<T>): {
       props: PropsWithEvents,
       children: Children
     } {
@@ -161,7 +160,7 @@ export default abstract class Block<T extends PropsWithChildren = PropsWithChild
     return { props, children };
   }
 
-  setProps(newProps: Partial<T>): void {
+  public setProps(newProps: Partial<T>): void {
     if (!newProps) {
       return;
     }
@@ -171,14 +170,14 @@ export default abstract class Block<T extends PropsWithChildren = PropsWithChild
     Object.assign(this.props, props);
   }
 
-  _addEvents() {
+  private _addEvents() {
     const { events = {} } = this.props;
     Object.keys(events).forEach((eventName) => {
             this._element!.addEventListener(eventName, events[eventName]);
     });
   }
 
-  _removeEvents() {
+  private _removeEvents() {
     const { events = {} } = this.props;
 
     Object.keys(events).forEach((eventName) => {
@@ -186,7 +185,7 @@ export default abstract class Block<T extends PropsWithChildren = PropsWithChild
     });
   }
 
-  _compile() {
+  private _compile() {
     const propsAndStubs = { ...this.props };
 
     Object.entries(this.children).forEach(([key, value]) => {
@@ -216,28 +215,36 @@ export default abstract class Block<T extends PropsWithChildren = PropsWithChild
     return fragment.content;
   }
 
-  _render() {
+  private _render() {
     this._removeEvents();
     const block = this._compile();
 
     if (this._element!.children.length === 0) {
-            this._element!.appendChild(block);
+      this._element!.appendChild(block);
     } else {
-            this._element!.replaceChildren(block);
+      this._element!.replaceChildren(block);
     }
 
     this._addEvents();
   }
 
-  render() {
+  public render() {
     return '';
   }
 
-  getContent() {
+  public getContent() {
+    setTimeout(() => {
+      if (
+        this.element?.nodeType === Node.ELEMENT_NODE
+      ) {
+        this.dispatchComponentDidMount();
+      }
+    }, 100);
+
     return this.element;
   }
 
-  _makePropsProxy(props: Props) {
+  private _makePropsProxy(props: Props) {
     const eventBus = this._eventBus();
     const emitBind = eventBus.emit.bind(eventBus);
 
@@ -260,7 +267,7 @@ export default abstract class Block<T extends PropsWithChildren = PropsWithChild
     });
   }
 
-  _makeChildrenProxy(children: Children) {
+  private _makeChildrenProxy(children: Children) {
     const eventBus = this._eventBus();
     const emitBind = eventBus.emit.bind(eventBus);
 
@@ -283,7 +290,7 @@ export default abstract class Block<T extends PropsWithChildren = PropsWithChild
     });
   }
 
-  _createDocumentElement(tagName: string) {
+  private _createDocumentElement(tagName: string) {
     return document.createElement(tagName);
   }
 

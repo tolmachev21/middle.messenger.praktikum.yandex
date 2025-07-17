@@ -5,14 +5,14 @@ export default class EventBus<E extends string> {
     this._listeners = {};
   }
 
-  on(eventName: E, callback: Function) {
+  public on(eventName: E, callback: Function) {
     if (!this._listeners[eventName]) {
       this._listeners[eventName] = [];
     }
     this._listeners[eventName].push(callback);
   }
 
-  off(eventName: E, callback: Function) {
+  public off(eventName: E, callback: Function) {
     if (!this._listeners[eventName]) {
       throw Error(`Нет такого события для off ${eventName}`);
     }
@@ -20,7 +20,7 @@ export default class EventBus<E extends string> {
     this._listeners[eventName] = this._listeners[eventName].filter((listener) => listener !== callback);
   }
 
-  emit<T extends unknown[] = []>(eventName: E, ...args: T) {
+  public emit<T extends unknown[] = []>(eventName: E, ...args: T) {
     if (!this._listeners[eventName]) {
       throw Error(`Нет такого события для emit ${eventName}`);
     }

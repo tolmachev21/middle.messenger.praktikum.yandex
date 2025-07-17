@@ -14,17 +14,17 @@ type Options = {
 type OptionsWithoutMethod = Omit<Options, 'method'>;
 
 export class HTTPTransport {
-  private apiUrl: string = '';
+  private _apiUrl: string = '';
 
   constructor(apiPath: string) {
-    this.apiUrl = `https://ya-praktikum.tech/api/v2/${apiPath}`;
+    this._apiUrl = `https://ya-praktikum.tech/api/v2/${apiPath}`;
   }
 
   get<TResponse>(
     endpoint: string,
     options: OptionsWithoutMethod = {},
   ): Promise<TResponse> {
-    return this.request<TResponse>(`${this.apiUrl}${endpoint}`, {
+    return this._request<TResponse>(`${this._apiUrl}${endpoint}`, {
       ...options,
       method: METHOD.GET,
     });
@@ -34,7 +34,7 @@ export class HTTPTransport {
     endpoint: string,
     options: OptionsWithoutMethod = {},
   ): Promise<TResponse> {
-    return this.request<TResponse>(`${this.apiUrl}${endpoint}`, {
+    return this._request<TResponse>(`${this._apiUrl}${endpoint}`, {
       ...options,
       method: METHOD.POST,
     });
@@ -44,7 +44,7 @@ export class HTTPTransport {
     endpoint: string,
     options: OptionsWithoutMethod = {},
   ): Promise<TResponse> {
-    return this.request<TResponse>(`${this.apiUrl}${endpoint}`, {
+    return this._request<TResponse>(`${this._apiUrl}${endpoint}`, {
       ...options,
       method: METHOD.PUT,
     });
@@ -54,13 +54,13 @@ export class HTTPTransport {
     endpoint: string,
     options: OptionsWithoutMethod = {},
   ): Promise<TResponse> {
-    return this.request<TResponse>(`${this.apiUrl}${endpoint}`, {
+    return this._request<TResponse>(`${this._apiUrl}${endpoint}`, {
       ...options,
       method: METHOD.DELETE,
     });
   }
 
-  async request<TResponse>(
+  private async _request<TResponse>(
     url: string,
     options: Options = { method: METHOD.GET },
   ): Promise<TResponse> {
@@ -103,7 +103,7 @@ export class HTTPTransport {
   }
 }
 
-function queryStringify(data: Record<string, string | number> = {}) {
+export function queryStringify(data: Record<string, string | number> = {}) {
   if (typeof data !== 'object') {
     throw new Error('Data must be object');
   }
