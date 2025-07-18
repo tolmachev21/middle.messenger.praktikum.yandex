@@ -6,9 +6,9 @@ export default class Router {
 
   private _rootQuery: string = '';
 
-  private history: History = window.history;
+  private _history: History = window.history;
 
-  private routes: Array<Route> = [];
+  private _routes: Array<Route> = [];
 
   private _currentRoute: Route | null = null;
 
@@ -24,19 +24,19 @@ export default class Router {
 
   public use(pathname: string, block: BlockConstructor) {
     const route = new Route(pathname, block, { rootQuery: this._rootQuery });
-    this.routes.push(route);
+    this._routes.push(route);
     return this;
   }
 
-  start() {
+  public start() {
     window.addEventListener('popstate', () => this._onRoute(window.location.pathname));
 
     this._onRoute(window.location.pathname);
   }
 
-  _onRoute(pathname: string) {
+  private _onRoute(pathname: string) {
     const route = this._getRoute(pathname);
-
+    console.log('pathname', pathname);
     if (!route) {
       throw new Error(`Роут по ${pathname} не зарегистирован`);
     }
@@ -50,25 +50,25 @@ export default class Router {
     route.render();
   }
 
-  go(pathname: string) {
-    this.history.pushState({}, '', pathname);
+  public go(pathname: string) {
+    this._history.pushState({}, '', pathname);
     this._onRoute(pathname);
   }
 
-  back(pathname: string) {
+  public back(pathname: string) {
     if (pathname) {
-      this.history.replaceState({}, '', pathname);
+      this._history.replaceState({}, '', pathname);
       this._onRoute(pathname);
       return;
     }
-    this.history.back();
+    this._history.back();
   }
 
-  forward() {
-    this.history.forward();
+  public forward() {
+    this._history.forward();
   }
 
   private _getRoute(pathname: string) {
-    return this.routes.find((route) => route.match(pathname));
+    return this._routes.find((route) => route.match(pathname));
   }
 }

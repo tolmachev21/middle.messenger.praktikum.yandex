@@ -1,1 +1,1 @@
-export { isEqual } from './isEqual';
+export { isEqual } from './isEqual.ts';

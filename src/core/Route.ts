@@ -1,5 +1,5 @@
-import { isEqual } from '../utils';
-import { render } from './renderDOM';
+import { isEqual } from '../utils/index.ts';
+import { render } from './renderDOM.ts';
 import Block, { BlockConstructor } from './Block';
 
 type PropsWithRootQuery = Record<string, string>

@@ -30,6 +30,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
     if (userObj?.id && (window.location.pathname === '/' || window.location.pathname === '/sign-up')) window.history.pushState({}, '', '/messenger');
   } catch (err) {
+    console.error('err', err);
     router.go('/');
   }
 
@@ -40,6 +41,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       .use('/messenger', Pages.ChatsPage)
       .start();
   } catch (err) {
+    console.error('err', err);
     renderDOM(new Pages.Error404Page({
       onClick: () => router.back('/messenger'),
     }));
